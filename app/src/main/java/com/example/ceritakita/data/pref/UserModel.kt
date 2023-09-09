@@ -1,4 +1,4 @@
-package com.example.ceritamereka.data.pref
+package com.example.ceritakita.data.pref
 
 data class UserModel(
     val email: String,

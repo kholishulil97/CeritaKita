@@ -1,4 +1,4 @@
-package com.example.ceritamereka.data.pref
+package com.example.ceritakita.data.pref
 
 import android.content.Context
 import androidx.datastore.core.DataStore

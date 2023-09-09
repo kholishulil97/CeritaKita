@@ -1,4 +1,4 @@
-package com.example.ceritamereka.view.login
+package com.example.ceritakita.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -6,27 +6,68 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import com.example.ceritamereka.R
-import com.example.ceritamereka.data.pref.UserModel
-import com.example.ceritamereka.databinding.ActivityLoginBinding
-import com.example.ceritamereka.view.ViewModelFactory
-import com.example.ceritamereka.view.main.MainActivity
+import com.example.ceritakita.R
+import com.example.ceritakita.data.pref.UserModel
+import com.example.ceritakita.databinding.ActivityLoginBinding
+import com.example.ceritakita.view.ViewModelFactory
+import com.example.ceritakita.view.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityLoginBinding
+    private var isEmailValid: Boolean = false
+    private var isPasswordValid: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setMyButtonEnable()
+
+        binding.emailEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (s.toString().isEmpty()) {
+                    binding.emailEditTextLayout.error = getString(R.string.message_error_email_empty)
+                    isEmailValid = false
+                } else {
+                    binding.emailEditTextLayout.error = null
+                    isEmailValid = true
+                }
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
+        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (s.toString().isEmpty()) {
+                    binding.passwordEditTextLayout.error = getString(R.string.message_error_name)
+                    isPasswordValid = false
+                } else {
+                    binding.passwordEditTextLayout.error = null
+                    isPasswordValid = true
+                }
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
 
         setupView()
         setupAction()
@@ -44,6 +85,16 @@ class LoginActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun setMyButtonEnable() {
+        val resultEmail = binding.emailEditText.text
+        val resultPassword = binding.passwordEditText.text
+
+        binding.loginButton.isEnabled = (resultEmail.toString().isNotEmpty()
+                && resultPassword.toString().isNotEmpty()
+                && isPasswordValid
+                && isEmailValid)
     }
 
     private fun setupAction() {

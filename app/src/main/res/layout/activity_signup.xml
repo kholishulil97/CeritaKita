@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:alpha="0"
         android:text="@string/name"
         android:textColor="@color/black"
@@ -61,9 +61,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
         app:startIconDrawable="@drawable/ic_baseline_person_24"
+        app:endIconMode="clear_text"
         tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.example.ceritakita.view.custom.MyEditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,9 +97,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextView"
         app:startIconDrawable="@drawable/ic_baseline_email_24"
+        app:endIconMode="clear_text"
         tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.example.ceritakita.view.custom.MyEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:alpha="0"
         android:text="@string/password"
         android:textColor="@color/black"
@@ -128,13 +130,14 @@
         android:layout_marginEnd="32dp"
         android:alpha="0"
         app:endIconMode="password_toggle"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.example.ceritakita.view.custom.MyEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,13 +145,14 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.example.ceritamereka.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/signupButton"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:enabled="false"
         android:alpha="0"
         android:text="@string/signup"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,4 +1,4 @@
-package com.example.ceritamereka
+package com.example.ceritakita
 
 import org.junit.Test
 

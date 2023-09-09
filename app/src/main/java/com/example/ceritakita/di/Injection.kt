@@ -1,9 +1,9 @@
-package com.example.ceritamereka.di
+package com.example.ceritakita.di
 
 import android.content.Context
-import com.example.ceritamereka.data.UserRepository
-import com.example.ceritamereka.data.pref.UserPreference
-import com.example.ceritamereka.data.pref.dataStore
+import com.example.ceritakita.data.UserRepository
+import com.example.ceritakita.data.pref.UserPreference
+import com.example.ceritakita.data.pref.dataStore
 
 object Injection {
     fun provideRepository(context: Context): UserRepository {

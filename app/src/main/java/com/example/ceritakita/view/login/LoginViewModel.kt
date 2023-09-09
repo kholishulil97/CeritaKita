@@ -1,9 +1,9 @@
-package com.example.ceritamereka.view.login
+package com.example.ceritakita.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ceritamereka.data.UserRepository
-import com.example.ceritamereka.data.pref.UserModel
+import com.example.ceritakita.data.UserRepository
+import com.example.ceritakita.data.pref.UserModel
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {

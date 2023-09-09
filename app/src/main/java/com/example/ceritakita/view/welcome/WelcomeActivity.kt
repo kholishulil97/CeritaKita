@@ -1,4 +1,4 @@
-package com.example.ceritamereka.view.welcome
+package com.example.ceritakita.view.welcome
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -9,10 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.example.ceritamereka.R
-import com.example.ceritamereka.databinding.ActivityWelcomeBinding
-import com.example.ceritamereka.view.login.LoginActivity
-import com.example.ceritamereka.view.signup.SignupActivity
+import com.example.ceritakita.databinding.ActivityWelcomeBinding
+import com.example.ceritakita.view.login.LoginActivity
+import com.example.ceritakita.view.signup.SignupActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding

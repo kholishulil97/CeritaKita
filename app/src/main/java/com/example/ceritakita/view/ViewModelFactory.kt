@@ -1,13 +1,13 @@
-package com.example.ceritamereka.view
+package com.example.ceritakita.view
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.ceritamereka.data.UserRepository
-import com.example.ceritamereka.di.Injection
-import com.example.ceritamereka.view.login.LoginViewModel
-import com.example.ceritamereka.view.main.MainViewModel
-import com.example.ceritamereka.view.splash.RoutingViewModel
+import com.example.ceritakita.data.UserRepository
+import com.example.ceritakita.di.Injection
+import com.example.ceritakita.view.login.LoginViewModel
+import com.example.ceritakita.view.main.MainViewModel
+import com.example.ceritakita.view.splash.RoutingViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 

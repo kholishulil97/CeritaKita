@@ -1,7 +1,7 @@
-package com.example.ceritamereka.data
+package com.example.ceritakita.data
 
-import com.example.ceritamereka.data.pref.UserModel
-import com.example.ceritamereka.data.pref.UserPreference
+import com.example.ceritakita.data.pref.UserModel
+import com.example.ceritakita.data.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository private constructor(

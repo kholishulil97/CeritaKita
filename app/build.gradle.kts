@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ceritamereka"
+    namespace = "com.example.ceritakita"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.ceritamereka"
+        applicationId = "com.example.ceritakita"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

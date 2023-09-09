@@ -1,13 +1,13 @@
-package com.example.ceritamereka.view.splash
+package com.example.ceritakita.view.splash
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.ceritamereka.view.ViewModelFactory
-import com.example.ceritamereka.view.main.MainActivity
-import com.example.ceritamereka.view.welcome.WelcomeActivity
+import com.example.ceritakita.view.ViewModelFactory
+import com.example.ceritakita.view.main.MainActivity
+import com.example.ceritakita.view.welcome.WelcomeActivity
 import java.util.Timer
 import kotlin.concurrent.schedule
 

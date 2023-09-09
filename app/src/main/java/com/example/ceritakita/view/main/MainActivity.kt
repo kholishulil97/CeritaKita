@@ -1,4 +1,4 @@
-package com.example.ceritamereka.view.main
+package com.example.ceritakita.view.main
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -10,13 +10,9 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ceritamereka.R
-import com.example.ceritamereka.databinding.ActivityLoginBinding
-import com.example.ceritamereka.databinding.ActivityMainBinding
-import com.example.ceritamereka.view.ViewModelFactory
-import com.example.ceritamereka.view.welcome.WelcomeActivity
-import java.util.Timer
-import kotlin.concurrent.schedule
+import com.example.ceritakita.databinding.ActivityMainBinding
+import com.example.ceritakita.view.ViewModelFactory
+import com.example.ceritakita.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {

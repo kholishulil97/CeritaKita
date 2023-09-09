@@ -1,14 +1,18 @@
 <resources>
-    <string name="app_name">Cerita Mereka</string>
+    <string name="app_name">Cerita Kita</string>
     <string name="signup">Daftar</string>
     <string name="login">Masuk</string>
-    <string name="message_welcome_page">Mau belajar Android, iOS, Machine Learning, Cloud, Front-End, Back-End, dan bidang IT lainnya? Di Dicoding aja!</string>
-    <string name="title_welcome_page">Selamat datang di Dicoding!</string>
+    <string name="message_welcome_page">Lihat cerita teman-teman dan bagikan cerita Anda kepada mereka tentang pengalaman belajar hingga lulus dari Dicoding!</string>
+    <string name="title_welcome_page">Selamat datang di Cerita Kita!</string>
     <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="message_login_page">Masukkan dulu datamu ya</string>
-    <string name="title_login_page">Sudah siap untuk upgrade skill?</string>
+    <string name="message_error_name">Nama tidak boleh kosong.</string>
+    <string name="message_error_password">Password tidak boleh kurang dari 8 karakter.</string>
+    <string name="message_error_email">Format e-mail salah.</string>
+    <string name="message_error_email_empty">E-mail tidak boleh kosong.</string>
+    <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>
     <string name="name">Nama</string>
     <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
