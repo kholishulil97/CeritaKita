@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ceritakita"
+    namespace = "com.example.storyapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.ceritakita"
+        applicationId = "com.example.storyapp"
         minSdk = 21
         targetSdk = 33
         versionCode = 1
@@ -48,9 +48,23 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    //preference
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //view model & live data
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
+
+    //splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //room
+    implementation("androidx.room:room-runtime:2.5.2")
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 }
