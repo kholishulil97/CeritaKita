@@ -132,6 +132,9 @@ class LoginActivity : AppCompatActivity() {
             showFailedDialog(data.message)
         } else {
             viewModel.saveSession(UserModel(data.loginResult.token, true))
+            
+            Toast.makeText(this@LoginActivity, data.message, Toast.LENGTH_SHORT).show()
+
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
@@ -141,7 +144,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showFailedDialog(error: String) {
         val mBuilder = AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.tittle_dialog_login_failed))
+            setTitle(getString(R.string.title_dialog_login_failed))
             setMessage(getString(R.string.message_dialog_server_response) + error)
             setPositiveButton(getString(R.string.positive_button_dialog_failed), null)
         }

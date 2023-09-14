@@ -44,9 +44,11 @@ class StoryRepository (
         try {
             val response = apiService.postSignup(name, email, password)
             emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e("SignUpViewModel", "postSignUp: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage))
         }
     }
 
