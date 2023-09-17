@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.view.ViewModelFactory
 import com.example.storyapp.view.welcome.WelcomeActivity
@@ -19,19 +20,16 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+    private lateinit var storyAdapter: StoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getSession().observe(this) {
-            //binding.nameTextView.text = it.email
-        }
-
+        setupAdapter()
         setupView()
-        setupAction()
-        playAnimation()
+        setupData()
     }
 
     private fun setupView() {
@@ -47,28 +45,21 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupAction() {
-        binding.logoutButton.setOnClickListener {
-            viewModel.logout()
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            finish()
+    private fun setupAdapter() {
+        viewModel.storyList.observe(this@MainActivity) { pagingData ->
+            storyAdapter.submitData(lifecycle, pagingData)
         }
     }
 
-    private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
-
-        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val message = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
-        val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
-
-        AnimatorSet().apply {
-            playSequentially(name, message, logout)
-            startDelay = 100
-        }.start()
+    private fun setupData() {
+        storyAdapter = StoryAdapter()
+        binding.rvStory.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = storyAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    storyAdapter.retry()
+                }
+            )
+        }
     }
 }

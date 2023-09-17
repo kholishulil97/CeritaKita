@@ -24,4 +24,7 @@
     <string name="positive_button_dialog_failed">Mengerti</string>
     <string name="positive_button_dialog_success">Lanjut</string>
     <string name="message_dialog_signup_success">Sekarang silakan lanjut Login</string>
+    <string name="text_item_title">The Story Title is Here</string>
+    <string name="title_item_desc">The description of the story lies here…</string>
+    <string name="label_retry">Retry</string>
 </resources>

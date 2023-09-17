@@ -25,9 +25,8 @@ class RoutingActivity : AppCompatActivity() {
         splashScreen.setKeepOnScreenCondition { true }
 
         viewModel.getSession().observe(this) {
-            mIsLogin = it.isLogin
             Timer().schedule(1500){
-                routeToNextActivity(mIsLogin)
+                routeToNextActivity(it.isLogin)
             }
         }
     }

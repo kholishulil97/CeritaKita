@@ -1,12 +1,16 @@
 package com.example.storyapp.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.example.storyapp.data.pref.UserModel
 import com.example.storyapp.data.pref.UserPreference
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.data.remote.response.signup.SignupResponse
+import com.example.storyapp.data.remote.response.story.ListStoryItem
 import com.example.storyapp.data.remote.retrofit.ApiService
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -63,5 +67,16 @@ class StoryRepository (
             val errorMessage = errorBody.message
             emit(Result.Error(errorMessage))
         }
+    }
+
+    fun getStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingResource(userPreference, apiService)
+            }
+        ).liveData
     }
 }
