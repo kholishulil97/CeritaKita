@@ -7,7 +7,7 @@ import com.example.storyapp.data.pref.UserModel
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: StoryRepository) : ViewModel() {
-    fun login(email: String, password: String) = repository.postLogin(email, password)
+    fun login(email: String, password: String) = repository.getLogin(email, password)
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {

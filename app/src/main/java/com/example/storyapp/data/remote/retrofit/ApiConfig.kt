@@ -1,5 +1,7 @@
 package com.example.storyapp.data.remote.retrofit
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object{
-        fun getApiService(token: String): ApiService {
+        fun getApiService(token: String, context: Context): ApiService {
             val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
@@ -18,6 +20,7 @@ class ApiConfig {
                 chain.proceed(requestHeaders)
             }
             val client = OkHttpClient.Builder()
+                .addInterceptor(ChuckerInterceptor(context))
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(authInterceptor)
                 .build()

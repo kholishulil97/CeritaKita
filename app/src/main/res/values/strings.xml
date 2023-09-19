@@ -20,11 +20,14 @@
     <string name="title_dialog_signup_success">Akun berhasil dibuat</string>
     <string name="title_dialog_signup_failed">Akun gagal dibuat</string>
     <string name="title_dialog_login_failed">Login gagal</string>
+    <string name="message_login_success">"Berhasil login"</string>
     <string name="message_dialog_server_response">"Pesan: "</string>
+    <string name="message_dialog_server_error">"Terjadi kesalahan: "</string>
     <string name="positive_button_dialog_failed">Mengerti</string>
     <string name="positive_button_dialog_success">Lanjut</string>
     <string name="message_dialog_signup_success">Sekarang silakan lanjut Login</string>
-    <string name="text_item_title">The Story Title is Here</string>
-    <string name="title_item_desc">The description of the story lies here…</string>
-    <string name="label_retry">Retry</string>
+    <string name="text_item_title">Disini Judul Cerita</string>
+    <string name="title_item_desc">Deskripsi cerita ada disini…</string>
+    <string name="label_retry">Coba lagi</string>
+    <string name="label_language">Bahasa</string>
 </resources>

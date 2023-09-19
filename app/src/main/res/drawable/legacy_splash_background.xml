@@ -36,7 +36,7 @@
     android:left="50dp"
     android:right="50dp"
     android:top="100dp">
-    <color android:color="@color/yellow6" />
+    <color android:color="@color/colorControlActivated" />
   </item>
   <item
     android:bottom="100dp"

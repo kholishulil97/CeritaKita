@@ -13,5 +13,15 @@ import com.example.storyapp.data.remote.response.story.StoryResponse
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: StoryRepository) : ViewModel() {
-    val storyList: LiveData<PagingData<ListStoryItem>> = repository.getStories().cachedIn(viewModelScope)
+    fun getSession(): LiveData<UserModel> {
+        return repository.getSession()
+    }
+
+    fun getStoryList() = repository.getStoryList()
+
+    fun logout() {
+        viewModelScope.launch {
+            repository.logout()
+        }
+    }
 }

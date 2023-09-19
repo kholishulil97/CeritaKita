@@ -1,6 +1,7 @@
 package com.example.storyapp.data.pref
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -34,6 +35,10 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         dataStore.edit { preferences ->
             preferences.clear()
         }
+    }
+
+    fun initPref(context: Context, name: String): SharedPreferences {
+        return context.getSharedPreferences(name, Context.MODE_PRIVATE)
     }
 
     companion object {

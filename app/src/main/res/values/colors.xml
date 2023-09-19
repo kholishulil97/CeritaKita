@@ -3,9 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#006837</color>
-    <color name="colorPrimaryDark">#004012</color>
-    <color name="colorAccent">#c75f00</color>
+    <color name="colorPrimary">#FBB8AC</color>
+    <color name="colorPrimaryDark">#FBB8AC</color>
+    <color name="colorAccent">#FEDBD0</color>
 
     <color name="pink1">#F8BBD0</color>
     <color name="pink2">#F48FB1</color>
@@ -41,6 +41,13 @@
     <color name="purple4">#AB47BC</color>
     <color name="purple5">#9C27B0</color>
     <color name="purple6">#8E24AA</color>
+
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="colorControlActivated">#FBB8AC</color>
+    <color name="grey">@android:color/darker_gray</color>
 
     <color name="navy">#2D3D4F</color>
 </resources>

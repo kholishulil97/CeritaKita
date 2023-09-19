@@ -5,15 +5,24 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.storyapp.R
+import com.example.storyapp.data.Result
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.view.ViewModelFactory
+import com.example.storyapp.view.login.LoginActivity
 import com.example.storyapp.view.welcome.WelcomeActivity
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -21,45 +30,82 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var binding: ActivityMainBinding
     private lateinit var storyAdapter: StoryAdapter
+    private var token = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUser()
         setupAdapter()
-        setupView()
         setupData()
+        setupView()
+    }
+
+    private fun setupUser() {
+        viewModel.getSession().observe(this) {
+            token = it.token
+        }
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+        binding.topAppBar.setNavigationOnClickListener {
+            finish()
         }
-        supportActionBar?.hide()
-    }
 
-    private fun setupAdapter() {
-        viewModel.storyList.observe(this@MainActivity) { pagingData ->
-            storyAdapter.submitData(lifecycle, pagingData)
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.btn_language -> {
+                    startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                    true
+                }
+                R.id.btn_logout -> {
+                    viewModel.logout()
+                    val intent = Intent(this, LoginActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> false
+            }
         }
     }
 
     private fun setupData() {
-        storyAdapter = StoryAdapter()
-        binding.rvStory.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = storyAdapter.withLoadStateFooter(
-                footer = LoadingStateAdapter {
-                    storyAdapter.retry()
+        viewModel.getStoryList().observe(this@MainActivity) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBarStory.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.progressBarStory.visibility = View.GONE
+                        val storyData = result.data
+                        storyAdapter.submitList(storyData)
+                    }
+                    is Result.Error -> {
+                        binding.progressBarStory.visibility = View.GONE
+                        Toast.makeText(
+                            this@MainActivity,
+                            getString(R.string.message_dialog_server_error) + result.error,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> {}
                 }
-            )
+            }
         }
+        binding.rvStory.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = storyAdapter
+        }
+    }
+
+    private fun setupAdapter() {
+        storyAdapter = StoryAdapter()
     }
 }

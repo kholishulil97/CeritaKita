@@ -8,6 +8,6 @@ import com.example.storyapp.data.pref.UserModel
 
 class RoutingViewModel(private val repository: StoryRepository) : ViewModel() {
     fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
+        return repository.getSession()
     }
 }

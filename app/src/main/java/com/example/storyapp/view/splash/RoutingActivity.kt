@@ -15,7 +15,6 @@ class RoutingActivity : AppCompatActivity() {
     private val viewModel by viewModels<RoutingViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private var mIsLogin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
