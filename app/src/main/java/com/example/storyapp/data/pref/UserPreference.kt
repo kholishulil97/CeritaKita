@@ -37,10 +37,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    fun initPref(context: Context, name: String): SharedPreferences {
-        return context.getSharedPreferences(name, Context.MODE_PRIVATE)
-    }
-
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null

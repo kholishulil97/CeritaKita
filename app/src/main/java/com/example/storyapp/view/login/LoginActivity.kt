@@ -171,7 +171,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun processLogin(data: LoginResponse) {
-            viewModel.saveSession(UserModel(data.loginResult.token, true))
+            viewModel.saveSession(
+                UserModel(
+                    "Bearer " +
+                            data.loginResult.token,
+                    true
+                )
+            )
             
             Toast.makeText(this@LoginActivity, getString(R.string.message_login_success), Toast.LENGTH_SHORT).show()
 

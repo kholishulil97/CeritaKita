@@ -75,10 +75,10 @@ class StoryRepository (
         }
     }
 
-    fun getStories(): LiveData<Result<StoryResponse>> = liveData {
+    fun getStories(token: String): LiveData<Result<StoryResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getStories()
+            val response = apiService.getStories(token)
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("ListStoryViewModel", "getStoriesWithLocation: ${e.message.toString()} ")

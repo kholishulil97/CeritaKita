@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
 
         setupUser()
         setupAdapter()
-        setupData()
         setupView()
     }
 
     private fun setupUser() {
         viewModel.getSession().observe(this) {
             token = it.token
+            setupData(token)
         }
     }
 
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.btn_logout -> {
                     viewModel.logout()
                     val intent = Intent(this, WelcomeActivity::class.java)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     finish()
                     true
@@ -73,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupData() {
-        viewModel.getStories().observe(this@MainActivity) { result ->
+    private fun setupData(token: String) {
+        viewModel.getStories(token).observe(this@MainActivity) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
