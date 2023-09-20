@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupData() {
-        viewModel.getStoryList().observe(this@MainActivity) { result ->
+        viewModel.getStories().observe(this@MainActivity) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.progressBarStory.visibility = View.GONE
                         val storyData = result.data
-                        storyAdapter.submitList(storyData)
+                        storyAdapter.submitList(storyData.listStory)
                     }
                     is Result.Error -> {
                         binding.progressBarStory.visibility = View.GONE

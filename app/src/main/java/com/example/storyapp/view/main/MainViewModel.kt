@@ -17,7 +17,7 @@ class MainViewModel(private val repository: StoryRepository) : ViewModel() {
         return repository.getSession()
     }
 
-    fun getStoryList() = repository.getStoryList()
+    fun getStories() = repository.getStories()
 
     fun logout() {
         viewModelScope.launch {

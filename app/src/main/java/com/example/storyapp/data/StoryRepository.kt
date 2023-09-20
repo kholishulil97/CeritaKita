@@ -1,5 +1,6 @@
 package com.example.storyapp.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,11 +15,14 @@ import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.data.remote.retrofit.ApiService
 import com.example.storyapp.utils.AppExecutors
 import com.google.gson.Gson
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import java.util.ArrayList
+import java.util.Objects
 
 class StoryRepository (
     private val apiService: ApiService,
@@ -49,134 +53,36 @@ class StoryRepository (
                 instance ?: StoryRepository(apiService, userPreference, appExecutors)
             }.also { instance = it }
     }
-
-    private val _signupResponse = MutableLiveData<SignupResponse>()
-    private val signupResponse: LiveData<SignupResponse> = _signupResponse
-
-    private val resultSignup = MediatorLiveData<Result<SignupResponse>>()
-
-    fun postSignup(name: String, email: String, password: String): LiveData<Result<SignupResponse>> {
-        resultSignup.value = Result.Loading
-        val client = apiService.postSignup(name, email, password)
-        client.enqueue(object : Callback<SignupResponse> {
-            override fun onResponse(
-                call: Call<SignupResponse>,
-                response: Response<SignupResponse>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    _signupResponse.value = response.body()
-                } else {
-                    resultSignup.value = Result.Error(response.message().toString())
-                }
-            }
-
-            override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                resultSignup.value = Result.Error(t.message.toString())
-            }
-        })
-        val localData = signupResponse
-        resultSignup.addSource(localData) {
-            resultSignup.value = Result.Success(it)
+    fun postSignUp(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.postSignUp(name, email, password)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e("SignUpViewModel", "postSignUp: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
         }
-        return resultSignup
     }
 
-//    fun postSignup(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
-//        emit(Result.Loading)
-//        try {
-//            val response = apiService.postSignup(name, email, password)
-//            emit(Result.Success(response))
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
-//            val errorMessage = errorBody.message
-//            emit(Result.Error(errorMessage))
-//        }
-//    }
-
-//    fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
-//        emit(Result.Loading)
-//        try {
-//            val response = apiService.postLogin(email, password)
-//            emit(Result.Success(response))
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
-//            val errorMessage = errorBody.message
-//            emit(Result.Error(errorMessage))
-//        }
-//    }
-    private val _loginResponse = MutableLiveData<LoginResponse>()
-    private val loginResponse: LiveData<LoginResponse> = _loginResponse
-
-    private val resultLogin = MediatorLiveData<Result<LoginResponse>>()
-
-    fun getLogin(email: String, password: String): LiveData<Result<LoginResponse>> {
-        resultLogin.value = Result.Loading
-        val client = apiService.postLogin(email, password)
-        client.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(
-                call: Call<LoginResponse>,
-                response: Response<LoginResponse>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    _loginResponse.value = response.body()
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                resultLogin.value = Result.Error(t.message.toString())
-            }
-        })
-        val localData = loginResponse
-        resultLogin.addSource(localData) {
-            resultLogin.value = Result.Success(it)
+    fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.postLogin(email, password)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e("LoginViewModel", "postLogin: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
         }
-        return resultLogin
     }
 
-    private var _itemStoryResult: MutableLiveData<List<ListStoryItem>> = MutableLiveData<List<ListStoryItem>>()
-    private val itemStoryResult: LiveData<List<ListStoryItem>> = _itemStoryResult
-
-    private val result = MediatorLiveData<Result<List<ListStoryItem>>>()
-
-    fun getStoryList(): LiveData<Result<List<ListStoryItem>>> {
-        result.value = Result.Loading
-        val client = apiService.getStories()
-        client.enqueue(object : Callback<StoryResponse> {
-            override fun onResponse(
-                call: Call<StoryResponse>,
-                response: Response<StoryResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val stories = response.body()?.listStory
-                    val storiesList = ArrayList<ListStoryItem>()
-                    appExecutors.diskIO.execute {
-                        stories?.forEach { story ->
-                            val storyItem = ListStoryItem(
-                                story.photoUrl,
-                                story.createdAt,
-                                story.name,
-                                story.description,
-                                story.lon,
-                                story.id,
-                                story.lat
-                            )
-                            storiesList.add(storyItem)
-                        }
-                    }
-                    _itemStoryResult.value = storiesList
-                }
-            }
-
-            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
-                result.value = Result.Error(t.message.toString())
-            }
-        })
-        val localData = itemStoryResult
-        result.addSource(localData) { newData: List<ListStoryItem> ->
-            result.value = Result.Success(newData)
+    fun getStories(): LiveData<Result<StoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStories()
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.d("ListStoryViewModel", "getStoriesWithLocation: ${e.message.toString()} ")
+            emit(Result.Error(e.message.toString()))
         }
-        return result
     }
 }
