@@ -42,6 +42,26 @@ class SignupActivity : AppCompatActivity() {
 
         setMyButtonEnable()
 
+        setupView()
+        setupViewListener()
+        setupAction()
+        playAnimation()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
+    }
+
+    private fun setupViewListener() {
         binding.nameEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -80,10 +100,6 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {
             }
         })
-
-        setupView()
-        setupAction()
-        playAnimation()
     }
 
     private fun isValidEmail(s: CharSequence) {
@@ -111,19 +127,6 @@ class SignupActivity : AppCompatActivity() {
             binding.passwordEditTextLayout.error = null
             isPasswordValid = true
         }
-    }
-
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
     }
 
     private fun setMyButtonEnable() {
@@ -155,7 +158,7 @@ class SignupActivity : AppCompatActivity() {
                         }
                         is Result.Error -> {
                             showLoading(false)
-                            showFailedDialog(result.error)
+                            displayFailedState(result.error)
                         }
 
                         else -> {}
@@ -167,7 +170,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun processSignup(data: SignupResponse) {
         if (data.error) {
-            showFailedDialog(data.message)
+            displayFailedState(data.message)
         } else {
             showSuccessDialog()
         }
@@ -190,7 +193,21 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFailedDialog(error: String) {
+    private fun showLoading(state: Boolean) {
+        binding.progressBarSignup.isVisible = state
+        binding.nameEditTextLayout.isEnabled = false
+        binding.emailEditTextLayout.isEnabled = false
+        binding.passwordEditTextLayout.isEnabled = false
+        binding.signupButton.isEnabled = false
+    }
+
+    private fun displayFailedState(error: String) {
+        binding.progressBarSignup.isVisible = false
+        binding.nameEditTextLayout.isEnabled = true
+        binding.emailEditTextLayout.isEnabled = true
+        binding.passwordEditTextLayout.isEnabled = true
+        binding.signupButton.isEnabled = true
+
         val mBuilder = AlertDialog.Builder(this).apply {
             setTitle(getString(R.string.title_dialog_signup_failed))
             setMessage(getString(R.string.message_dialog_server_response) + error)
@@ -202,10 +219,6 @@ class SignupActivity : AppCompatActivity() {
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
         }
-    }
-
-    private fun showLoading(state: Boolean) {
-        binding.progressBarSignup.isVisible = state
     }
 
     private fun playAnimation() {

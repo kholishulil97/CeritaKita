@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.btn_logout -> {
                     viewModel.logout()
-                    val intent = Intent(this, LoginActivity::class.java)
+                    val intent = Intent(this, WelcomeActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     finish()

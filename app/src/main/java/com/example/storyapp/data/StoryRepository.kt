@@ -49,18 +49,50 @@ class StoryRepository (
                 instance ?: StoryRepository(apiService, userPreference, appExecutors)
             }.also { instance = it }
     }
-    fun postSignup(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.postSignup(name, email, password)
-            emit(Result.Success(response))
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
-            val errorMessage = errorBody.message
-            emit(Result.Error(errorMessage))
+
+    private val _signupResponse = MutableLiveData<SignupResponse>()
+    private val signupResponse: LiveData<SignupResponse> = _signupResponse
+
+    private val resultSignup = MediatorLiveData<Result<SignupResponse>>()
+
+    fun postSignup(name: String, email: String, password: String): LiveData<Result<SignupResponse>> {
+        resultSignup.value = Result.Loading
+        val client = apiService.postSignup(name, email, password)
+        client.enqueue(object : Callback<SignupResponse> {
+            override fun onResponse(
+                call: Call<SignupResponse>,
+                response: Response<SignupResponse>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    _signupResponse.value = response.body()
+                } else {
+                    resultSignup.value = Result.Error(response.message().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+                resultSignup.value = Result.Error(t.message.toString())
+            }
+        })
+        val localData = signupResponse
+        resultSignup.addSource(localData) {
+            resultSignup.value = Result.Success(it)
         }
+        return resultSignup
     }
+
+//    fun postSignup(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
+//        emit(Result.Loading)
+//        try {
+//            val response = apiService.postSignup(name, email, password)
+//            emit(Result.Success(response))
+//        } catch (e: HttpException) {
+//            val jsonInString = e.response()?.errorBody()?.string()
+//            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+//            val errorMessage = errorBody.message
+//            emit(Result.Error(errorMessage))
+//        }
+//    }
 
 //    fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
 //        emit(Result.Loading)

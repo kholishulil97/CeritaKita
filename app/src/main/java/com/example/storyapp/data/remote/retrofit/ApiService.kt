@@ -15,11 +15,11 @@ import retrofit2.http.Query
 interface ApiService {
     @FormUrlEncoded
     @POST("register")
-    suspend fun postSignup(
+    fun postSignup(
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): SignupResponse
+    ): Call<SignupResponse>
 
     @FormUrlEncoded
     @POST("login")
