@@ -12,6 +12,7 @@ import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.data.remote.response.signup.SignupResponse
 import com.example.storyapp.data.remote.response.story.ListStoryItem
 import com.example.storyapp.data.remote.response.story.StoryResponse
+import com.example.storyapp.data.remote.response.story.upload.UploadStoryResponse
 import com.example.storyapp.data.remote.retrofit.ApiService
 import com.example.storyapp.utils.AppExecutors
 import com.google.gson.Gson
@@ -82,6 +83,17 @@ class StoryRepository (
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("ListStoryViewModel", "getStoriesWithLocation: ${e.message.toString()} ")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun postStory(token: String, file: MultipartBody.Part, description: RequestBody): LiveData<Result<UploadStoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.postStory(token, file, description)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e("CreateStoryViewModel", "postStory: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
