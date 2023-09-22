@@ -6,6 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".view.addstory.AddStoryActivity">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@id/cameraXButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:alpha="100">
+
+        <com.example.storyapp.view.custom.MyEditText
+            android:id="@+id/descEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:hint="@string/hint_add_story"
+            android:gravity="top"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/cameraXButton"
         android:layout_width="0dp"
@@ -14,58 +40,43 @@
         android:elevation="2dp"
         android:scaleType="fitCenter"
         android:text="@string/camera_x"
-        app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
-        app:layout_constraintEnd_toStartOf="@+id/cameraButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cameraButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/galleryButton"
+        app:layout_constraintEnd_toEndOf="@+id/descEditTextLayout"
+        app:layout_constraintStart_toEndOf="@+id/galleryButton"
+        app:layout_constraintTop_toTopOf="@+id/galleryButton" />
 
     <ImageView
         android:id="@+id/previewImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/cameraButton"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/descEditTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_place_holder" />
 
     <Button
-        android:id="@+id/cameraButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/camera"
-        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
-        app:layout_constraintEnd_toStartOf="@+id/galleryButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cameraXButton" />
-
-    <Button
         android:id="@+id/galleryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/gallery"
-        app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cameraButton"
-        app:layout_constraintTop_toTopOf="@+id/cameraButton" />
+        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
+        app:layout_constraintEnd_toStartOf="@+id/cameraXButton"
+        app:layout_constraintStart_toStartOf="@+id/descEditTextLayout" />
 
-    <Button
+    <com.example.storyapp.view.custom.MyButton
         android:id="@+id/uploadButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

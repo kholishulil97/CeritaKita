@@ -74,7 +74,6 @@ class AddStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.cameraXButton.setOnClickListener { startCameraX() }
-        binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
             viewModel.getSession().observe(this) {
@@ -144,21 +143,6 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private lateinit var currentPhotoPath: String
-
-    private fun startTakePhoto() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.resolveActivity(packageManager)
-        createCustomTempFile(application).also {
-            val photoURI: Uri = FileProvider.getUriForFile(
-                this@AddStoryActivity,
-                "com.dicoding.picodiploma.mycamera",
-                it
-            )
-            currentPhotoPath = it.absolutePath
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-            launcherIntentCamera.launch(intent)
-        }
-    }
 
     private fun startCameraX() {
         val intent = Intent(this, CameraActivity::class.java)
