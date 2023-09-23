@@ -30,7 +30,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/titleTextView"
+            android:id="@+id/usernameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/storyImageView"
             card_view:layout_constraintTop_toTopOf="@+id/storyImageView"
-            tools:text="@string/text_item_title"/>
+            tools:text="@string/text_item_username"/>
 
         <TextView
             android:id="@+id/descTextView"
@@ -51,10 +51,10 @@
             android:ellipsize="end"
             android:maxLines="5"
             card_view:layout_constraintBottom_toBottomOf="@+id/storyImageView"
-            card_view:layout_constraintEnd_toEndOf="@+id/titleTextView"
-            card_view:layout_constraintStart_toStartOf="@+id/titleTextView"
-            card_view:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            card_view:layout_constraintEnd_toEndOf="@+id/usernameTextView"
+            card_view:layout_constraintStart_toStartOf="@+id/usernameTextView"
+            card_view:layout_constraintTop_toBottomOf="@+id/usernameTextView"
             card_view:layout_constraintVertical_bias="0.0"
-            tools:text="@string/title_item_desc"/>
+            tools:text="@string/text_item_desc"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

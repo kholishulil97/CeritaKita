@@ -228,7 +228,7 @@ class SignupActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
+        val user = ObjectAnimator.ofFloat(binding.usernameTextView, View.ALPHA, 1f).setDuration(100)
         val nameTextView =
             ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
         val nameEditTextLayout =
@@ -246,7 +246,7 @@ class SignupActivity : AppCompatActivity() {
 
         AnimatorSet().apply {
             playSequentially(
-                title,
+                user,
                 nameTextView,
                 nameEditTextLayout,
                 emailTextView,

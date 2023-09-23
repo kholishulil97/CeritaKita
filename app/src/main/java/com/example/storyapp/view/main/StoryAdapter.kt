@@ -38,7 +38,7 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_
         binding.root
     ) {
         fun bind(story: ListStoryItem) {
-            binding.titleTextView.text = story.name
+            binding.usernameTextView.text = story.name
             binding.descTextView.text = story.description
             Glide.with(itemView.context)
                 .load(story.photoUrl)
@@ -51,8 +51,8 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
                         itemView.context as Activity,
-                        Pair(binding.storyImageView, "story"),
-                        Pair(binding.titleTextView, "name"),
+                        Pair(binding.storyImageView, "image"),
+                        Pair(binding.usernameTextView, "name"),
                         Pair(binding.descTextView, "desc")
                     )
                 itemView.context.startActivity(intent, optionsCompat.toBundle())
