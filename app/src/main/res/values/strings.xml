@@ -10,6 +10,7 @@
     <string name="message_login_page">Masukkan dulu datamu ya</string>
     <string name="message_error_name">Nama tidak boleh kosong.</string>
     <string name="message_error_password">Password tidak boleh kurang dari 8 karakter.</string>
+    <string name="message_error_description">Deskripsi story tidak boleh kosong.</string>
     <string name="message_error_email">Format e-mail salah.</string>
     <string name="message_error_email_empty">E-mail tidak boleh kosong.</string>
     <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>

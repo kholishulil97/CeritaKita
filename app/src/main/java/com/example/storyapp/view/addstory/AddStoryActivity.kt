@@ -9,6 +9,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -45,7 +47,6 @@ class AddStoryActivity : AppCompatActivity() {
     private var currentImageUri: Uri? = null
 
     companion object {
-        const val CAMERA_X_RESULT = 200
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
@@ -75,6 +76,8 @@ class AddStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setupView()
+        setMyButtonEnable()
+        setupViewListener()
         setupAction()
         setupPermission()
     }
@@ -128,6 +131,7 @@ class AddStoryActivity : AppCompatActivity() {
             Log.d("Image URI", "showImage: $it")
             binding.previewImageView.setImageURI(it)
         }
+        setMyButtonEnable()
     }
 
     private fun startGallery() {
@@ -149,7 +153,7 @@ class AddStoryActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-            val description = "Ini adalah deksripsi gambar"
+            val description = binding.descEditText.text.toString()
 
             viewModel.uploadImage(token, imageFile, description).observe(this) { result ->
                 if (result != null) {
@@ -179,5 +183,31 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setMyButtonEnable() {
+        val resultDesc = binding.descEditText.text
+
+        binding.uploadButton.isEnabled = (
+                resultDesc.toString().isNotEmpty()
+                        && currentImageUri != null
+                )
+    }
+
+    private fun setupViewListener() {
+        binding.descEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (s.toString().isEmpty()) {
+                    binding.descEditTextLayout.error = getString(R.string.message_error_description)
+                } else {
+                    binding.descEditTextLayout.error = null
+                }
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
     }
 }
