@@ -39,4 +39,5 @@
     <string name="upload">Unggah</string>
     <string name="desc_create_new_story">tambahkan cerita baru</string>
     <string name="hint_add_story">Apa yang ingin Anda ceritakan?</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
 </resources>

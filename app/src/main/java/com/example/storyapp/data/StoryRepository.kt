@@ -14,21 +14,23 @@ import com.example.storyapp.data.remote.response.story.ListStoryItem
 import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.data.remote.response.story.upload.UploadStoryResponse
 import com.example.storyapp.data.remote.retrofit.ApiService
-import com.example.storyapp.utils.AppExecutors
 import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.io.File
 import java.util.ArrayList
 import java.util.Objects
 
 class StoryRepository (
     private val apiService: ApiService,
     private val userPreference: UserPreference,
-    private val appExecutors: AppExecutors,
 ) {
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -47,11 +49,10 @@ class StoryRepository (
         private var instance: StoryRepository? = null
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreference,
-            appExecutors: AppExecutors
+            userPreference: UserPreference
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService, userPreference, appExecutors)
+                instance ?: StoryRepository(apiService, userPreference)
             }.also { instance = it }
     }
     fun postSignUp(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
@@ -87,14 +88,23 @@ class StoryRepository (
         }
     }
 
-    fun postStory(token: String, file: MultipartBody.Part, description: RequestBody): LiveData<Result<UploadStoryResponse>> = liveData {
+    fun uploadImage(token: String, imageFile: File, description: String) = liveData {
         emit(Result.Loading)
+        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
         try {
-            val response = apiService.postStory(token, file, description)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e("CreateStoryViewModel", "postStory: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
+            val successResponse = apiService.uploadImage(token, multipartBody, requestBody)
+            emit(Result.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
+            emit(Result.Error(errorResponse.message))
         }
+
     }
 }
