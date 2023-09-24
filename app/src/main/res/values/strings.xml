@@ -30,6 +30,7 @@
     <string name="text_item_desc">Deskripsi cerita ada disini…</string>
     <string name="label_retry">Coba lagi</string>
     <string name="label_language">Bahasa</string>
+    <string name="label_add_story">Tambahkan Story</string>
     <string name="label_detail_story">Detail Story</string>
 
     <string name="camera_x">CameraX</string>

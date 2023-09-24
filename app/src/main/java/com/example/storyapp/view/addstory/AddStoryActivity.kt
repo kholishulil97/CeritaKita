@@ -70,9 +70,22 @@ class AddStoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setupView()
+        setupAction()
+        setupPermission()
+    }
+
+    private fun setupView() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    private fun setupAction() {
         binding.cameraXButton.setOnClickListener { startCameraX() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
@@ -81,7 +94,9 @@ class AddStoryActivity : AppCompatActivity() {
                 uploadImage(token)
             }
         }
+    }
 
+    private fun setupPermission() {
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 this,
@@ -162,20 +177,6 @@ class AddStoryActivity : AppCompatActivity() {
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
             myFile?.let { file ->
                 rotateFile(file, isBackCamera)
-                getFile = file
-                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
-            }
-        }
-    }
-
-    private val launcherIntentCamera = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == RESULT_OK) {
-            val myFile = File(currentPhotoPath)
-
-            myFile.let { file ->
-                rotateFile(file)
                 getFile = file
                 binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }

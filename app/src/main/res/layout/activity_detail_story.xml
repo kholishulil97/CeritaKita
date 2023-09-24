@@ -17,6 +17,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_baseline_back_24"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:title="@string/label_detail_story"
             style="@style/Widget.Shrine.Toolbar"/>
