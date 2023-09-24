@@ -1,16 +1,9 @@
 package com.example.storyapp.view.main
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,10 +13,7 @@ import com.example.storyapp.data.Result
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.view.ViewModelFactory
 import com.example.storyapp.view.addstory.AddStoryActivity
-import com.example.storyapp.view.login.LoginActivity
 import com.example.storyapp.view.welcome.WelcomeActivity
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {

@@ -3,12 +3,8 @@ package com.example.storyapp.view.addstory
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -16,27 +12,19 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import com.example.storyapp.R
 import com.example.storyapp.data.Result
 import com.example.storyapp.databinding.ActivityAddStoryBinding
-import com.example.storyapp.utils.createCustomTempFile
 import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
 import com.example.storyapp.view.ViewModelFactory
 import com.example.storyapp.view.camera.CameraActivity
 import com.example.storyapp.view.camera.CameraActivity.Companion.CAMERAX_RESULT
-import com.example.storyapp.view.main.MainActivity
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Callback
-import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
     private val viewModel: AddStoryViewModel by viewModels {

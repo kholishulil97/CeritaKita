@@ -2,31 +2,22 @@ package com.example.storyapp.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.example.storyapp.data.pref.UserModel
 import com.example.storyapp.data.pref.UserPreference
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.data.remote.response.signup.SignupResponse
-import com.example.storyapp.data.remote.response.story.ListStoryItem
 import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.data.remote.response.story.upload.UploadStoryResponse
 import com.example.storyapp.data.remote.retrofit.ApiService
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.File
-import java.util.ArrayList
-import java.util.Objects
 
 class StoryRepository (
     private val apiService: ApiService,

@@ -2,7 +2,6 @@ package com.example.storyapp.data.remote.retrofit
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

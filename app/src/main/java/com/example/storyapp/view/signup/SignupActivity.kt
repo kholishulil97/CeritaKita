@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,17 +12,14 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.storyapp.R
 import com.example.storyapp.data.Result
-import com.example.storyapp.data.pref.UserModel
-import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.data.remote.response.signup.SignupResponse
 import com.example.storyapp.databinding.ActivitySignupBinding
 import com.example.storyapp.view.ViewModelFactory
 import com.example.storyapp.view.login.LoginActivity
-import com.example.storyapp.view.login.LoginViewModel
-import com.example.storyapp.view.main.MainActivity
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.storyapp.R
-import com.example.storyapp.data.local.StoryEntity
 import com.example.storyapp.data.remote.response.story.ListStoryItem
 import com.example.storyapp.databinding.ItemStoryBinding
 import com.example.storyapp.view.main.detailstory.DetailStoryActivity
