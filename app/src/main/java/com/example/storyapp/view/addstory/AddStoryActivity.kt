@@ -48,7 +48,7 @@ class AddStoryActivity : AppCompatActivity() {
             if (!allPermissionsGranted()) {
                 Toast.makeText(
                     this,
-                    "Tidak mendapatkan permission.",
+                    getString(R.string.message_permission_failed),
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()

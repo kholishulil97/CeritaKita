@@ -56,7 +56,7 @@
         android:layout_marginStart="8dp"
         android:elevation="2dp"
         android:scaleType="fitCenter"
-        android:text="@string/camera_x"
+        android:text="@string/camera"
         app:layout_constraintBottom_toBottomOf="@+id/galleryButton"
         app:layout_constraintEnd_toEndOf="@+id/descEditTextLayout"
         app:layout_constraintStart_toEndOf="@+id/galleryButton"

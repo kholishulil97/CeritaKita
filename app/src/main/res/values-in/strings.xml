@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="message_welcome_page">Lihat cerita teman-teman dan bagikan cerita Anda kepada mereka tentang pengalaman belajar hingga lulus dari Dicoding!</string>
+    <string name="title_welcome_page">Selamat datang di Cerita Kita!</string>
+    <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya…</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Masukkan dulu datamu ya…</string>
+    <string name="message_error_name">Nama tidak boleh kosong.</string>
+    <string name="message_error_password">Password tidak boleh kurang dari 8 karakter.</string>
+    <string name="message_error_description">Deskripsi story tidak boleh kosong.</string>
+    <string name="message_error_email">Format e-mail salah.</string>
+    <string name="message_error_email_empty">E-mail tidak boleh kosong.</string>
+    <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>
+    <string name="name">Nama</string>
+    <string name="logout">Keluar</string>
+    <string name="title_dialog_signup_success">Akun berhasil dibuat</string>
+    <string name="title_dialog_signup_failed">Akun gagal dibuat</string>
+    <string name="title_dialog_login_failed">Login gagal</string>
+    <string name="message_login_success">Berhasil login</string>
+    <string name="message_dialog_server_response">Pesan: </string>
+    <string name="message_dialog_server_error">Terjadi kesalahan: </string>
+    <string name="positive_button_dialog_failed">Mengerti</string>
+    <string name="positive_button_dialog_success">Lanjut</string>
+    <string name="message_dialog_signup_success">Sekarang silakan lanjut Login.</string>
+    <string name="text_item_username">Username</string>
+    <string name="text_item_desc">Deskripsi cerita ada disini…</string>
+
+    <string name="label_retry">Coba lagi</string>
+    <string name="label_language">Bahasa</string>
+    <string name="label_add_story">Tambahkan Story</string>
+    <string name="label_detail_story">Detail Story</string>
+
+    <string name="camera_x">CameraX</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="desc_create_new_story">tambahkan cerita baru</string>
+    <string name="hint_add_story">Apa yang ingin Anda ceritakan?</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="message_camera_failed_shown">Gagal memunculkan kamera.</string>
+    <string name="message_camera_failed_picture">Gagal mengambil gambar.</string>
+    <string name="message_permission_failed">Gagal mendapatkan permission.</string>
+</resources>

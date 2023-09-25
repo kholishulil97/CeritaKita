@@ -69,34 +69,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupData(token: String) {
-        viewModel.getStories(token).observe(this@MainActivity) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        binding.progressBarStory.visibility = View.VISIBLE
-                    }
-                    is Result.Success -> {
-                        binding.progressBarStory.visibility = View.GONE
-                        val storyData = result.data
-                        storyAdapter.submitList(storyData.listStory)
-                    }
-                    is Result.Error -> {
-                        binding.progressBarStory.visibility = View.GONE
-                        Toast.makeText(
-                            this@MainActivity,
-                            getString(R.string.message_dialog_server_error) + result.error,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+        if (token.isNotEmpty()) {
+            viewModel.getStories(token).observe(this@MainActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> {
+                            binding.progressBarStory.visibility = View.VISIBLE
+                        }
+                        is Result.Success -> {
+                            binding.progressBarStory.visibility = View.GONE
+                            val storyData = result.data
+                            storyAdapter.submitList(storyData.listStory)
+                        }
+                        is Result.Error -> {
+                            binding.progressBarStory.visibility = View.GONE
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.message_dialog_server_error) + result.error,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-                    else -> {}
+                        else -> {}
+                    }
                 }
             }
-        }
-        binding.rvStory.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = storyAdapter
+            binding.rvStory.apply {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = storyAdapter
+            }
         }
     }
 

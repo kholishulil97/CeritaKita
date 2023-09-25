@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.toString().isEmpty()) {
-                    binding.passwordEditTextLayout.error = getString(R.string.message_error_name)
+                    binding.passwordEditTextLayout.error = getString(R.string.message_error_password)
                     isPasswordValid = false
                 } else {
                     binding.passwordEditTextLayout.error = null
