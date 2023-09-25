@@ -81,42 +81,8 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
-        binding.emailEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().isEmpty()) {
-                    binding.emailEditTextLayout.error = getString(R.string.message_error_email_empty)
-                    isEmailValid = false
-                } else {
-                    binding.emailEditTextLayout.error = null
-                    isEmailValid = true
-                }
-                setMyButtonEnable()
-            }
-            override fun afterTextChanged(s: Editable) {
-            }
-        })
-
-        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().isEmpty()) {
-                    binding.passwordEditTextLayout.error = getString(R.string.message_error_password)
-                    isPasswordValid = false
-                } else {
-                    binding.passwordEditTextLayout.error = null
-                    isPasswordValid = true
-                }
-                setMyButtonEnable()
-            }
-            override fun afterTextChanged(s: Editable) {
-            }
-        })
-
         setupView()
+        setupViewListener()
         setupAction()
         playAnimation()
     }
@@ -134,14 +100,33 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setMyButtonEnable() {
-        val resultEmail = binding.emailEditText.text
-        val resultPassword = binding.passwordEditText.text
+    private fun setupViewListener() {
+        binding.emailEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
-        binding.loginButton.isEnabled = (resultEmail.toString().isNotEmpty()
-                && resultPassword.toString().isNotEmpty()
-                && isPasswordValid
-                && isEmailValid)
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                isEmailValid = binding.emailEditText.error.isNullOrEmpty()
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
+        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                isPasswordValid = binding.passwordEditText.error.isNullOrEmpty()
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+    }
+
+    private fun setMyButtonEnable() {
+        binding.loginButton.isEnabled = (isPasswordValid && isEmailValid)
     }
 
     private fun setupAction() {

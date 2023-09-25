@@ -1,10 +1,12 @@
 package com.example.storyapp.view.custom
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
@@ -12,9 +14,11 @@ import androidx.core.content.ContextCompat
 import com.example.storyapp.R
 
 
-class MyEditText: AppCompatEditText, View.OnTouchListener {
+class MyEditText: AppCompatEditText {
 
-    private lateinit var clearButtonImage: Drawable
+    private var errorBackground: Drawable? = null
+    private var defaultBackground: Drawable? = null
+    private var isError: Boolean = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -27,78 +31,92 @@ class MyEditText: AppCompatEditText, View.OnTouchListener {
     }
 
     private fun init() {
-        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_black_24) as Drawable
-        setOnTouchListener(this)
+        errorBackground = ContextCompat.getDrawable(context, R.drawable.bg_edt_error)
+        defaultBackground = ContextCompat.getDrawable(context, R.drawable.bg_edt_default)
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // Do nothing.
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().isNotEmpty()) showClearButton() else hideClearButton()
+                val input = s.toString()
+                when (inputType) {
+                    TEXT -> {
+                        isError = if (input.isEmpty()) {
+                            setError(context.getString(R.string.message_error_name), null)
+                            true
+                        } else {
+                            error = null
+                            false
+                        }
+                    }
+                    EMAIL -> {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
+                            error = context.getString(R.string.message_error_email)
+                            isError = true
+                        } else {
+                            error = null
+                            isError = false
+                        }
+                    }
+                    PASSWORD -> {
+                        isError = if (input.length < 8) {
+                            setError(context.getString(R.string.message_error_password), null)
+                            true
+                        } else {
+                            error = null
+                            false
+                        }
+                    }
+                }
             }
             override fun afterTextChanged(s: Editable) {
-                // Do nothing.
+                val input = s.toString()
+                when (inputType) {
+                    TEXT -> {
+                        isError = if (input.isEmpty()) {
+                            setError(context.getString(R.string.message_error_name), null)
+                            true
+                        } else {
+                            error = null
+                            false
+                        }
+                    }
+                    EMAIL -> {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
+                            error = context.getString(R.string.message_error_email)
+                            isError = true
+                        } else {
+                            error = null
+                            isError = false
+                        }
+                    }
+                    PASSWORD -> {
+                        isError = if (input.length < 8) {
+                            setError(context.getString(R.string.message_error_password), null)
+                            true
+                        } else {
+                            error = null
+                            false
+                        }
+                    }
+                }
             }
         })
     }
 
-    override fun onTouch(v: View?, event: MotionEvent): Boolean {
-        if (compoundDrawables[2] != null) {
-            val clearButtonStart: Float
-            val clearButtonEnd: Float
-            var isClearButtonClicked = false
-            if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
-                clearButtonEnd = (clearButtonImage.intrinsicWidth + paddingStart).toFloat()
-                when {
-                    event.x < clearButtonEnd -> isClearButtonClicked = true
-                }
-            } else {
-                clearButtonStart = (width - paddingEnd - clearButtonImage.intrinsicWidth).toFloat()
-                when {
-                    event.x > clearButtonStart -> isClearButtonClicked = true
-                }
-            }
-            if (isClearButtonClicked) {
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_black_24) as Drawable
-                        showClearButton()
-                        return true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_black_24) as Drawable
-                        when {
-                            text != null -> text?.clear()
-                        }
-                        hideClearButton()
-                        return true
-                    }
-                    else -> return false
-                }
-            } else return false
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        background = if (isError) {
+            errorBackground
+        } else {
+            defaultBackground
         }
-        return false
     }
 
-    private fun showClearButton() {
-        setButtonDrawables(endOfTheText = clearButtonImage)
-    }
-    private fun hideClearButton() {
-        setButtonDrawables()
-    }
-
-    private fun setButtonDrawables(
-        startOfTheText: Drawable? = null,
-        topOfTheText:Drawable? = null,
-        endOfTheText:Drawable? = null,
-        bottomOfTheText: Drawable? = null
-    ){
-        setCompoundDrawablesWithIntrinsicBounds(
-            startOfTheText,
-            topOfTheText,
-            endOfTheText,
-            bottomOfTheText
-        )
+    companion object {
+        const val TEXT = 0x00000001
+        const val EMAIL = 0x00000021
+        const val PASSWORD = 0x00000081
     }
 }

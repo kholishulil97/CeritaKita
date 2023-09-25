@@ -62,13 +62,8 @@ class SignupActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().isEmpty()) {
-                    binding.nameEditTextLayout.error = getString(R.string.message_error_name)
-                    isNameValid = false
-                } else {
-                    binding.nameEditTextLayout.error = null
-                    isNameValid = true
-                }
+                isNameValid = binding.nameEditText.error.isNullOrEmpty()
+                setMyButtonEnable()
             }
             override fun afterTextChanged(s: Editable) {
             }
@@ -79,7 +74,7 @@ class SignupActivity : AppCompatActivity() {
 
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                isValidEmail(s)
+                isEmailValid = binding.emailEditText.error.isNullOrEmpty()
                 setMyButtonEnable()
             }
             override fun afterTextChanged(s: Editable) {
@@ -90,7 +85,7 @@ class SignupActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                isValidPassword(s)
+                isPasswordValid = binding.passwordEditText.error.isNullOrEmpty()
                 setMyButtonEnable()
             }
             override fun afterTextChanged(s: Editable) {
@@ -98,43 +93,12 @@ class SignupActivity : AppCompatActivity() {
         })
     }
 
-    private fun isValidEmail(s: CharSequence) {
-        return if (!isEmailMatches(s)) {
-            binding.emailEditTextLayout.error = getString(R.string.message_error_email)
-            isEmailValid = false
-        } else {
-            binding.emailEditTextLayout.error = null
-            isEmailValid = true
-        }
-    }
-
-    private fun isEmailMatches(s: CharSequence): Boolean {
-        val pattern = Pattern.compile(
-            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}\$")
-        val mathcer = pattern.matcher(s)
-        return mathcer.matches()
-    }
-
-    private fun isValidPassword(s: CharSequence) {
-        return if (s.length < 8) {
-            binding.passwordEditTextLayout.error = getString(R.string.message_error_password)
-            isPasswordValid = false
-        } else {
-            binding.passwordEditTextLayout.error = null
-            isPasswordValid = true
-        }
-    }
-
     private fun setMyButtonEnable() {
-        val resultName = binding.nameEditText.text
-        val resultEmail = binding.emailEditText.text
-        val resultPassword = binding.passwordEditText.text
-
-        binding.signupButton.isEnabled = (resultName.toString().isNotEmpty()
-                && resultEmail.toString().isNotEmpty()
-                && resultPassword.toString().isNotEmpty()
-                && isPasswordValid
-                && isEmailValid)
+        binding.signupButton.isEnabled = (
+                isNameValid
+                        && isPasswordValid
+                        && isEmailValid
+                )
     }
 
     private fun setupAction() {

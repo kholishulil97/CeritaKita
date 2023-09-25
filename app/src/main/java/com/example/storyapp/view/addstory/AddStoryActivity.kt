@@ -153,6 +153,7 @@ class AddStoryActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showToast(result.data.message)
                             showLoading(false)
+                            finish()
                         }
 
                         is Result.Error -> {
