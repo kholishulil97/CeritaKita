@@ -44,4 +44,9 @@
     <string name="message_camera_failed_shown">Gagal memunculkan kamera.</string>
     <string name="message_camera_failed_picture">Gagal mengambil gambar.</string>
     <string name="message_permission_failed">Gagal mendapatkan permission.</string>
+
+    <string name="appwidget_text">BANNER CERITA KITA</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
 </resources>
