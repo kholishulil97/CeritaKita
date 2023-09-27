@@ -1,6 +1,5 @@
 package com.example.storyapp.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
@@ -52,7 +51,6 @@ class StoryRepository (
             val response = apiService.postSignUp(name, email, password)
             emit(Result.Success(response))
         } catch (e: Exception) {
-            Log.e("SignUpViewModel", "postSignUp: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
@@ -63,7 +61,6 @@ class StoryRepository (
             val response = apiService.postLogin(email, password)
             emit(Result.Success(response))
         } catch (e: Exception) {
-            Log.e("LoginViewModel", "postLogin: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
@@ -74,7 +71,6 @@ class StoryRepository (
             val response = apiService.getStories(token)
             emit(Result.Success(response))
         } catch (e: Exception) {
-            Log.d("ListStoryViewModel", "getStoriesWithLocation: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
     }
