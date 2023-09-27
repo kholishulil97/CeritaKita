@@ -41,6 +41,15 @@ class DetailStoryActivity : AppCompatActivity() {
                         .placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
                 ).into(profileImageView)
+            Glide.with(this@DetailStoryActivity)
+                .load(R.drawable.storm_trooper)
+                .fitCenter()
+                .circleCrop()
+                .apply(
+                    RequestOptions
+                        .placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                ).into(imageViewAvatar)
         }
     }
 
