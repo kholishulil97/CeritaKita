@@ -24,7 +24,7 @@
         android:layout_margin="8dp"
         android:indeterminateTint="@color/pink6" />
 
-    <com.example.storyapp.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/buttonRetry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toStartOf="@+id/cameraXButton"
         app:layout_constraintStart_toStartOf="@+id/descEditTextLayout" />
 
-    <com.example.storyapp.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/uploadButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Story App</string>
+    <string name="app_name">Cerita Kita</string>
     <string name="signup">Daftar</string>
     <string name="login">Masuk</string>
     <string name="message_welcome_page">Lihat cerita teman-teman dan bagikan cerita Anda kepada mereka tentang pengalaman belajar hingga lulus dari Dicoding!</string>

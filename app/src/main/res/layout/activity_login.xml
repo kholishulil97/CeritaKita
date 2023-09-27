@@ -76,7 +76,7 @@
         app:startIconDrawable="@drawable/ic_baseline_email_24"
         tools:alpha="100">
 
-        <com.example.storyapp.view.custom.MyEditText
+        <com.example.ceritakita.view.custom.MyEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         tools:alpha="100">
 
-        <com.example.storyapp.view.custom.MyEditText
+        <com.example.ceritakita.view.custom.MyEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.example.storyapp.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="64dp"

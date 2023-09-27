@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
         tools:alpha="100" />
 
-    <com.example.storyapp.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/descTextView"
         tools:alpha="100" />
 
-    <com.example.storyapp.view.custom.MyButton
+    <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/signupButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

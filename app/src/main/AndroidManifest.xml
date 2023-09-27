@@ -46,7 +46,7 @@
         </receiver>
 
         <service
-            android:name="com.example.storyapp.widget.StackWidgetService"
+            android:name="com.example.ceritakita.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
@@ -83,7 +83,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.storyapp"
+            android:authorities="com.example.ceritakita"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

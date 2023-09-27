@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.storyapp"
+    namespace = "com.example.ceritakita"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.storyapp"
+        applicationId = "com.example.ceritakita"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

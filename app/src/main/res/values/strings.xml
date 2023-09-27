@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Story App</string>
+    <string name="app_name">Cerita Kita</string>
     <string name="signup">Sign-Up</string>
     <string name="login">Login</string>
     <string name="message_welcome_page">Check out friends\' stories and share yours with them about your learning experience to graduate from Dicoding!</string>
