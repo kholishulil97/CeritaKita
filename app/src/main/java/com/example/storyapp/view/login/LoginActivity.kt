@@ -95,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
                     when(result) {
                         is Result.Loading -> {
                             showLoading(true)
+                            showForm(false)
                         }
                         is Result.Success -> {
                             processLogin(result.data)
@@ -102,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                         is Result.Error -> {
                             showLoading(false)
+                            showForm(true)
                             showFailedDialog(result.error)
                         }
 
@@ -129,6 +131,10 @@ class LoginActivity : AppCompatActivity() {
             finish()
     }
 
+    private fun showLoading(state: Boolean) {
+        binding.progressBarLogin.isVisible = state
+    }
+
     private fun showFailedDialog(error: String) {
         val mBuilder = AlertDialog.Builder(this).apply {
             setTitle(getString(R.string.title_dialog_login_failed))
@@ -143,8 +149,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(state: Boolean) {
-        binding.progressBarLogin.isVisible = state
+    private fun showForm(state: Boolean) {
+        binding.emailEditTextLayout.isEnabled = state
+        binding.passwordEditTextLayout.isEnabled = state
+        binding.loginButton.isEnabled = state
     }
 
     private fun playAnimation() {

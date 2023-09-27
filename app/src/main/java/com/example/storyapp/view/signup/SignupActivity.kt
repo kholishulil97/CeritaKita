@@ -111,6 +111,7 @@ class SignupActivity : AppCompatActivity() {
                     when(result) {
                         is Result.Loading -> {
                             showLoading(true)
+                            showForm(false)
                         }
                         is Result.Success -> {
                             processSignup(result.data)
@@ -119,6 +120,7 @@ class SignupActivity : AppCompatActivity() {
                         is Result.Error -> {
                             showLoading(false)
                             displayFailedState(result.error)
+                            showForm(true)
                         }
 
                         else -> {}
@@ -131,6 +133,7 @@ class SignupActivity : AppCompatActivity() {
     private fun processSignup(data: SignupResponse) {
         if (data.error) {
             displayFailedState(data.message)
+            showForm(true)
         } else {
             showSuccessDialog()
         }
@@ -155,18 +158,10 @@ class SignupActivity : AppCompatActivity() {
 
     private fun showLoading(state: Boolean) {
         binding.progressBarSignup.isVisible = state
-        binding.nameEditTextLayout.isEnabled = false
-        binding.emailEditTextLayout.isEnabled = false
-        binding.passwordEditTextLayout.isEnabled = false
-        binding.signupButton.isEnabled = false
     }
 
     private fun displayFailedState(error: String) {
         binding.progressBarSignup.isVisible = false
-        binding.nameEditTextLayout.isEnabled = true
-        binding.emailEditTextLayout.isEnabled = true
-        binding.passwordEditTextLayout.isEnabled = true
-        binding.signupButton.isEnabled = true
 
         val mBuilder = AlertDialog.Builder(this).apply {
             setTitle(getString(R.string.title_dialog_signup_failed))
@@ -179,6 +174,13 @@ class SignupActivity : AppCompatActivity() {
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
         }
+    }
+
+    private fun showForm(state: Boolean) {
+        binding.nameEditTextLayout.isEnabled = state
+        binding.emailEditTextLayout.isEnabled = state
+        binding.passwordEditTextLayout.isEnabled = state
+        binding.signupButton.isEnabled = state
     }
 
     private fun playAnimation() {

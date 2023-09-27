@@ -148,6 +148,7 @@ class AddStoryActivity : AppCompatActivity() {
                     when (result) {
                         is Result.Loading -> {
                             showLoading(true)
+                            showForm(false)
                         }
 
                         is Result.Success -> {
@@ -159,11 +160,18 @@ class AddStoryActivity : AppCompatActivity() {
                         is Result.Error -> {
                             showToast(result.error)
                             showLoading(false)
+                            showForm(true)
                         }
                     }
                 }
             }
         } ?: showToast(getString(R.string.empty_image_warning))
+    }
+
+    private fun showForm(state: Boolean) {
+        binding.uploadButton.isEnabled = state
+        binding.cameraXButton.isEnabled = state
+        binding.galleryButton.isEnabled = state
     }
 
     private fun showLoading(state: Boolean) {

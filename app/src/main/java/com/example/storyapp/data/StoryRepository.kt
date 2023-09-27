@@ -50,8 +50,12 @@ class StoryRepository (
         try {
             val response = apiService.postSignUp(name, email, password)
             emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
+        } catch (e: HttpException) {
+            //get error message
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, SignupResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage))
         }
     }
 
@@ -60,8 +64,12 @@ class StoryRepository (
         try {
             val response = apiService.postLogin(email, password)
             emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
+        } catch (e: HttpException) {
+            //get error message
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, SignupResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage))
         }
     }
 
@@ -70,8 +78,12 @@ class StoryRepository (
         try {
             val response = apiService.getStories(token)
             emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
+        } catch (e: HttpException) {
+            //get error message
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, SignupResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage))
         }
     }
 

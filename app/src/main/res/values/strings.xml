@@ -20,8 +20,8 @@
     <string name="title_dialog_signup_failed">Account failed to create</string>
     <string name="title_dialog_login_failed">Login failed</string>
     <string name="message_login_success">Login successful</string>
-    <string name="message_dialog_server_response">Message: </string>
-    <string name="message_dialog_server_error">There is an error: </string>
+    <string name="message_dialog_server_response">"Message: "</string>
+    <string name="message_dialog_server_error">"There is an error: "</string>
     <string name="positive_button_dialog_failed">Got it!</string>
     <string name="positive_button_dialog_success">Continue</string>
     <string name="message_dialog_signup_success">Now please continue logging in.</string>

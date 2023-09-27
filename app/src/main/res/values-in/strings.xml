@@ -21,8 +21,8 @@
     <string name="title_dialog_signup_failed">Akun gagal dibuat</string>
     <string name="title_dialog_login_failed">Login gagal</string>
     <string name="message_login_success">Berhasil login</string>
-    <string name="message_dialog_server_response">Pesan: </string>
-    <string name="message_dialog_server_error">Terjadi kesalahan: </string>
+    <string name="message_dialog_server_response">"Pesan: "</string>
+    <string name="message_dialog_server_error">"Terjadi kesalahan: "</string>
     <string name="positive_button_dialog_failed">Mengerti</string>
     <string name="positive_button_dialog_success">Lanjut</string>
     <string name="message_dialog_signup_success">Sekarang silakan lanjut Login.</string>
