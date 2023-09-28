@@ -51,8 +51,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     //view model & live data
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.activity:activity-ktx:1.7.2")
 
     //splash screen
@@ -70,7 +70,7 @@ dependencies {
     //UI
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     //CameraX
     implementation("androidx.camera:camera-camera2:1.2.3")

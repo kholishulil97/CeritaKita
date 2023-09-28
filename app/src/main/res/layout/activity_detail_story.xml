@@ -44,7 +44,8 @@
                     android:layout_marginVertical="16dp"
                     android:layout_marginStart="16dp"
                     android:transitionName="user_avatar"
-                    tools:srcCompat="@drawable/storm_trooper" />
+                    tools:srcCompat="@drawable/storm_trooper"
+                    android:contentDescription="@string/description_detail_story_user_avatar" />
 
                 <TextView
                     android:id="@+id/nameTextView"
@@ -67,7 +68,8 @@
                 android:layout_margin="16dp"
                 android:scaleType="fitCenter"
                 tools:srcCompat="@drawable/ic_place_holder"
-                android:transitionName="image"/>
+                android:transitionName="image"
+                android:contentDescription="@string/description_detail_story_image" />
             <TextView
                 android:id="@+id/descTextView"
                 android:layout_width="match_parent"

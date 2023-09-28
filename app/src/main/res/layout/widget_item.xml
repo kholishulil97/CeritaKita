@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        tools:srcCompat="@drawable/star_wars_logo" />
+        tools:srcCompat="@drawable/star_wars_logo"
+        android:contentDescription="@string/description_widget_image" />
 
 </LinearLayout>

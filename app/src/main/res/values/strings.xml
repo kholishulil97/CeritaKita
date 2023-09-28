@@ -12,7 +12,6 @@
     <string name="message_error_password">Password must not be less than 8 characters.</string>
     <string name="message_error_description">The story description cannot be empty.</string>
     <string name="message_error_email">Incorrect e-mail format.</string>
-    <string name="message_error_email_empty">E-mail cannot be empty.</string>
     <string name="title_login_page">Are you ready to share your story?</string>
     <string name="name">Name</string>
     <string name="logout">Logout</string>
@@ -28,12 +27,10 @@
     <string name="text_item_username">Username</string>
     <string name="text_item_desc">The story description is here…</string>
 
-    <string name="label_retry">Try again</string>
     <string name="label_language">Language</string>
     <string name="label_add_story">Add Story</string>
     <string name="label_detail_story">Story Details</string>
 
-    <string name="camera_x">CameraX</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
@@ -44,7 +41,17 @@
     <string name="message_camera_failed_picture">Failed to take picture.</string>
     <string name="message_permission_failed">Failed to get permission.</string>
     <string name="appwidget_text">CERITA KITA BANNER</string>
-    <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="empty_text">NO DATA</string>
+
+    <string name="description_add_story_preview_image">Story image preview</string>
+    <string name="description_camera_capture_image">Capture image</string>
+    <string name="description_camera_switch_camera">Switch camera</string>
+    <string name="description_detail_story_user_avatar">User avatar</string>
+    <string name="description_login_page_image">Login page image</string>
+    <string name="description_signup_page_image">Signup page image</string>
+    <string name="description_welcome_screen_image">Welcome screen image</string>
+    <string name="description_story_list_item_image">Story list item image</string>
+    <string name="description_widget_image">Widget image</string>
+    <string name="description_detail_story_image">Story image</string>
 </resources>

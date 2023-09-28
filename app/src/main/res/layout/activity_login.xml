@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:srcCompat="@drawable/image_login" />
+        app:srcCompat="@drawable/image_login"
+        android:contentDescription="@string/description_login_page_image" />
 
     <TextView
         android:id="@+id/usernameTextView"

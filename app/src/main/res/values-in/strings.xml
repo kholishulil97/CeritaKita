@@ -13,7 +13,6 @@
     <string name="message_error_password">Password tidak boleh kurang dari 8 karakter.</string>
     <string name="message_error_description">Deskripsi story tidak boleh kosong.</string>
     <string name="message_error_email">Format e-mail salah.</string>
-    <string name="message_error_email_empty">E-mail tidak boleh kosong.</string>
     <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>
     <string name="name">Nama</string>
     <string name="logout">Keluar</string>
@@ -29,12 +28,10 @@
     <string name="text_item_username">Username</string>
     <string name="text_item_desc">Deskripsi cerita ada disini…</string>
 
-    <string name="label_retry">Coba lagi</string>
     <string name="label_language">Bahasa</string>
     <string name="label_add_story">Tambahkan Story</string>
     <string name="label_detail_story">Detail Story</string>
 
-    <string name="camera_x">CameraX</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
     <string name="upload">Unggah</string>
@@ -46,7 +43,17 @@
     <string name="message_permission_failed">Gagal mendapatkan permission.</string>
 
     <string name="appwidget_text">BANNER CERITA KITA</string>
-    <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="empty_text">TIDAK ADA DATA</string>
+
+    <string name="description_add_story_preview_image">Preview gambar story</string>
+    <string name="description_camera_capture_image">Tangkap gambar</string>
+    <string name="description_camera_switch_camera">Ganti kamera</string>
+    <string name="description_detail_story_user_avatar">Avatar pengguna</string>
+    <string name="description_login_page_image">Gambar halaman Login</string>
+    <string name="description_signup_page_image">Gambar halaman Signup</string>
+    <string name="description_welcome_screen_image">Gambar halaman Welcome</string>
+    <string name="description_story_list_item_image">Gambar item daftar story</string>
+    <string name="description_widget_image">Gambar widget</string>
+    <string name="description_detail_story_image">Gambar story</string>
 </resources>

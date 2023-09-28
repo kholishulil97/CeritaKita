@@ -10,11 +10,6 @@
     </style>
 
     <!-- Legacy Splash Screen Theme -->
-    <style name="LegacySplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/legacy_splash_background</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
 
     <!-- Splash Screen Theme (pre Android 12) -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen.IconBackground">
@@ -31,10 +26,6 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
-    <style name="Widget.Shrine.Toolbar.Detail" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
     <style name="TextAppearance.Shrine.Toolbar" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">16sp</item>
     </style>
@@ -44,8 +35,4 @@
         <item name="android:background">?android:attr/colorBackground</item>
     </style>
 
-    <style name="Widget.CeritaKita.AppWidget.InnerView" parent="android:Widget">
-        <item name="android:background">?android:attr/colorBackground</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
 </resources>

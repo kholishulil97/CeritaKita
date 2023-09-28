@@ -1,6 +1,5 @@
 package com.example.ceritakita.utils
 
-import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,14 +8,13 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import androidx.exifinterface.media.ExifInterface
-import com.example.ceritakita.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 private const val MAXIMAL_SIZE = 1000000
@@ -29,18 +27,6 @@ val timeStamp: String = SimpleDateFormat(
 fun createCustomTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
-}
-
-fun createFile(application: Application): File {
-    val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
-        File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
-    }
-
-    val outputDirectory = if (
-        mediaDir != null && mediaDir.exists()
-    ) mediaDir else application.filesDir
-
-    return File(outputDirectory, "$timeStamp.jpg")
 }
 
 fun uriToFile(selectedImg: Uri, context: Context): File {
