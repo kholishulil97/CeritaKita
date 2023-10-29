@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.ceritakita.R
-import com.example.ceritakita.data.remote.response.story.ListStoryItem
+import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.databinding.ActivityDetailStoryBinding
 
 class DetailStoryActivity : AppCompatActivity() {

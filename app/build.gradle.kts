@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -34,6 +35,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
     buildFeatures {
         viewBinding = true
@@ -60,8 +62,11 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     //room
-    implementation("androidx.room:room-runtime:2.5.2")
-    annotationProcessor("androidx.room:room-compiler:2.5.2")
+    val room_version = "2.5.2"
+
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-paging:$room_version")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -80,4 +85,9 @@ dependencies {
 
     //desugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+
+    //Paging3
+    val paging_version = "3.2.1"
+
+    implementation("androidx.paging:paging-runtime:$paging_version")
 }

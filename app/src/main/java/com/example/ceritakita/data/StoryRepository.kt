@@ -3,6 +3,14 @@ package com.example.ceritakita.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.example.ceritakita.data.database.StoryDatabase
+import com.example.ceritakita.data.entity.ListStoryItem
+import com.example.ceritakita.data.paging.StoryRemoteMediator
 import com.example.ceritakita.data.pref.UserModel
 import com.example.ceritakita.data.pref.UserPreference
 import com.example.ceritakita.data.remote.response.login.LoginResponse
@@ -21,6 +29,7 @@ import java.io.File
 class StoryRepository (
     private val apiService: ApiService,
     private val userPreference: UserPreference,
+    private val storyDatabase: StoryDatabase
 ) {
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -39,10 +48,11 @@ class StoryRepository (
         private var instance: StoryRepository? = null
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreference
+            userPreference: UserPreference,
+            storyDatabase: StoryDatabase
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService, userPreference)
+                instance ?: StoryRepository(apiService, userPreference, storyDatabase)
             }.also { instance = it }
     }
     fun postSignUp(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
@@ -105,5 +115,18 @@ class StoryRepository (
             emit(Result.Error(errorResponse.message))
         }
 
+    }
+
+    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStory()
+            }
+        ).liveData
     }
 }

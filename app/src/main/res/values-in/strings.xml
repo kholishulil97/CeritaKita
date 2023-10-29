@@ -56,4 +56,6 @@
     <string name="description_story_list_item_image">Gambar item daftar story</string>
     <string name="description_widget_image">Gambar widget</string>
     <string name="description_detail_story_image">Gambar story</string>
+
+    <string name="retry">Coba lagi</string>
 </resources>

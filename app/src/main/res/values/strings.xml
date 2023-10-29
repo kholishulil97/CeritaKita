@@ -54,4 +54,6 @@
     <string name="description_story_list_item_image">Story list item image</string>
     <string name="description_widget_image">Widget image</string>
     <string name="description_detail_story_image">Story image</string>
+
+    <string name="retry">Try again</string>
 </resources>

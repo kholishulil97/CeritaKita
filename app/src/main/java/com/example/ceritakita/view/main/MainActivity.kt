@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ceritakita.R
 import com.example.ceritakita.data.Result
+import com.example.ceritakita.data.paging.LoadingStateAdapter
+import com.example.ceritakita.data.paging.StoryListAdapter
 import com.example.ceritakita.databinding.ActivityMainBinding
 import com.example.ceritakita.view.ViewModelFactory
 import com.example.ceritakita.view.addstory.AddStoryActivity
@@ -28,15 +30,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUser()
-        setupAdapter()
+        //setupUser()
+        //setupAdapter()
+
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
+
         setupView()
+        getData()
     }
 
     private fun setupUser() {
         viewModel.getSession().observe(this) {
             token = it.token
-            setupData(token)
+            //setupData(token)
         }
     }
 
@@ -68,41 +74,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupData(token: String) {
-        if (token.isNotEmpty()) {
-            viewModel.getStories(token).observe(this@MainActivity) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                            binding.progressBarStory.visibility = View.VISIBLE
-                        }
-                        is Result.Success -> {
-                            binding.progressBarStory.visibility = View.GONE
-                            val storyData = result.data
-                            storyAdapter.submitList(storyData.listStory)
-                        }
-                        is Result.Error -> {
-                            binding.progressBarStory.visibility = View.GONE
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.message_dialog_server_error) + result.error,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        else -> {}
-                    }
-                }
+    private fun getData() {
+        val adapter = StoryListAdapter()
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
             }
-            binding.rvStory.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = storyAdapter
-            }
+        )
+        viewModel.story.observe(this) {
+            adapter.submitData(lifecycle, it)
         }
-    }
-
-    private fun setupAdapter() {
-        storyAdapter = StoryAdapter()
     }
 }

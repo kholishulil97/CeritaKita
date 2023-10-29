@@ -1,5 +1,6 @@
 package com.example.ceritakita.data.remote.response.story
 
+import com.example.ceritakita.data.entity.ListStoryItem
 import com.google.gson.annotations.SerializedName
 
 data class StoryResponse(

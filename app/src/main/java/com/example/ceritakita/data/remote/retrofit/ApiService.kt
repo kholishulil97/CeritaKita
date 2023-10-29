@@ -1,5 +1,6 @@
 package com.example.ceritakita.data.remote.retrofit
 
+import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.data.remote.response.login.LoginResponse
 import com.example.ceritakita.data.remote.response.signup.SignupResponse
 import com.example.ceritakita.data.remote.response.story.StoryResponse
@@ -13,6 +14,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -34,6 +36,12 @@ interface ApiService {
     suspend fun getStories(
         @Header("Authorization") token: String
     ) : StoryResponse
+
+    @GET("stories")
+    suspend fun getStory(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): StoryResponse
 
     @Multipart
     @POST("stories")
