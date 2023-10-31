@@ -58,4 +58,10 @@
     <string name="description_detail_story_image">Gambar story</string>
 
     <string name="retry">Coba lagi</string>
+
+    <string name="title_activity_story_location">StoryLocationActivity</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satelit</string>
+    <string name="terrain_type">Medan</string>
+    <string name="hybrid_type">Hibrida</string>
 </resources>

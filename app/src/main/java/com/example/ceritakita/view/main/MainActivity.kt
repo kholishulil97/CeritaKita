@@ -15,6 +15,7 @@ import com.example.ceritakita.data.paging.StoryListAdapter
 import com.example.ceritakita.databinding.ActivityMainBinding
 import com.example.ceritakita.view.ViewModelFactory
 import com.example.ceritakita.view.addstory.AddStoryActivity
+import com.example.ceritakita.view.main.withlocation.StoryLocationActivity
 import com.example.ceritakita.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.btn_map -> {
+                    val intent = Intent(this, StoryLocationActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.btn_language -> {
                     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                     true
