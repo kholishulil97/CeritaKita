@@ -41,6 +41,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -92,4 +95,12 @@ dependencies {
     val paging_version = "3.2.1"
 
     implementation("androidx.paging:paging-runtime:$paging_version")
+
+    //mockito
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+
+    //special testing
+    testImplementation("androidx.arch.core:core-testing:2.1.0") // InstantTaskExecutorRule
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1") //TestDispatcher
 }
