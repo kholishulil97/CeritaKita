@@ -24,5 +24,13 @@ object DataDummy {
             listStory = storyList
         )
     }
+
+    fun generateDummyErrorStoryResponse(): StoryResponse {
+        return StoryResponse(
+            error = true,
+            message = "Missing authentication",
+            listStory = emptyList()
+        )
+    }
 }
 

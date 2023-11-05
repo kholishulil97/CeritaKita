@@ -38,6 +38,7 @@ class MainViewModelTest {
     private lateinit var storyRepository: StoryRepository
 
     private val dummyStoriesResponse = DataDummy.generateDummyStoryEntity()
+    private val dummyErrorStoriesResponse = DataDummy.generateDummyErrorStoryResponse()
 
     @Test
     fun `when getStory Should Not Null and Return Success`() = runTest {
@@ -62,6 +63,29 @@ class MainViewModelTest {
         assertEquals(dummyStoriesResponse.listStory, differ.snapshot())
         assertEquals(dummyStoriesResponse.listStory.size, differ.snapshot().size)
         assertEquals(dummyStoriesResponse.listStory[0].id, differ.snapshot()[0]?.id)
+    }
+
+    @Test
+    fun `when getStory No Data Should Return No Data`() = runTest {
+        val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(dummyErrorStoriesResponse.listStory)
+        val expectedStories = MutableLiveData<PagingData<ListStoryItem>>()
+        expectedStories.value = data
+
+        `when`(storyRepository.getStory()).thenReturn(expectedStories)
+
+        val listStoryViewModel = MainViewModel(storyRepository)
+        val actualStories: PagingData<ListStoryItem> = listStoryViewModel.story.getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryListAdapter.DIFF_CALLBACK,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = Dispatchers.Main,
+        )
+
+        differ.submitData(actualStories)
+
+        assertNotNull(differ.snapshot())
+        assertEquals(0, differ.snapshot().size)
     }
 
 }
