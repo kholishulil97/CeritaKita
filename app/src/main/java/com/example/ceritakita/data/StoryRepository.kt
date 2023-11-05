@@ -110,15 +110,16 @@ class StoryRepository (
             imageFile.name,
             requestImageFile
         )
-        try {
-            val successResponse = apiService.uploadImage(token, multipartBody, requestBody)
-            emit(Result.Success(successResponse))
-        } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
-            emit(Result.Error(errorResponse.message))
+        wrapEspressoIdlingResource {
+            try {
+                val successResponse = apiService.uploadImage(token, multipartBody, requestBody)
+                emit(Result.Success(successResponse))
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
+                emit(Result.Error(errorResponse.message))
+            }
         }
-
     }
 
     fun getStory(): LiveData<PagingData<ListStoryItem>> {
