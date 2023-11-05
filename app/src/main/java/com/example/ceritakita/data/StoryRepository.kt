@@ -18,6 +18,7 @@ import com.example.ceritakita.data.remote.response.signup.SignupResponse
 import com.example.ceritakita.data.remote.response.story.StoryResponse
 import com.example.ceritakita.data.remote.response.story.upload.UploadStoryResponse
 import com.example.ceritakita.data.remote.retrofit.ApiService
+import com.example.ceritakita.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -55,6 +56,7 @@ class StoryRepository (
                 instance ?: StoryRepository(apiService, userPreference, storyDatabase)
             }.also { instance = it }
     }
+
     fun postSignUp(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -71,15 +73,17 @@ class StoryRepository (
 
     fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
-        try {
-            val response = apiService.postLogin(email, password)
-            emit(Result.Success(response))
-        } catch (e: HttpException) {
-            //get error message
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, SignupResponse::class.java)
-            val errorMessage = errorBody.message
-            emit(Result.Error(errorMessage))
+        wrapEspressoIdlingResource {
+            try {
+                val response = apiService.postLogin(email, password)
+                emit(Result.Success(response))
+            } catch (e: HttpException) {
+                //get error message
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, SignupResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage))
+            }
         }
     }
 

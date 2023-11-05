@@ -43,6 +43,7 @@ android {
     }
     testOptions {
         unitTests.isReturnDefaultValues = true
+        animationsDisabled = true
     }
 }
 
@@ -67,11 +68,11 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     //room
-    val room_version = "2.5.2"
+    val roomVersion = "2.5.2"
 
-    implementation("androidx.room:room-ktx:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-paging:$room_version")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -92,9 +93,9 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     //Paging3
-    val paging_version = "3.2.1"
+    val pagingVersion = "3.2.1"
 
-    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
 
     //mockito
     testImplementation("org.mockito:mockito-core:3.12.4")
@@ -103,4 +104,13 @@ dependencies {
     //special testing
     testImplementation("androidx.arch.core:core-testing:2.1.0") // InstantTaskExecutorRule
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1") //TestDispatcher
+
+    //mock web server
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
+
+    //idling resource
+    implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")//IntentsTestRule
 }
