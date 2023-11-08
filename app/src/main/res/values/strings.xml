@@ -39,6 +39,7 @@
     <string name="empty_image_warning">Please insert the image file first.</string>
     <string name="message_camera_failed_shown">Failed to bring up the camera.</string>
     <string name="message_camera_failed_picture">Failed to take picture.</string>
+    <string name="message_camera_permission_success">Camera permission allowed.</string>
     <string name="message_permission_failed">Failed to get permission.</string>
     <string name="appwidget_text">CERITA KITA BANNER</string>
     <string name="app_widget_description">This is an app widget description</string>
@@ -62,4 +63,18 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
+    <string name="select_location">Select location</string>
+    <string name="content_description_btn_select_location">Select location</string>
+    <string name="story_location">Story Location</string>
+    <string name="title_activity_new_story_pick_location">NewStoryPickLocation</string>
+    <string name="location_unknown">📌 Location Unknown</string>
+    <string name="dialog_title_permission_required">Permission Required</string>
+    <string name="dialog_message_permission_failed">Please allow the following permission to launch the feature:\n</string>
+    <string name="dialog_button_allow">Allow</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="content_description_selected_location">selected location</string>
+    <string name="btn_click_select_location">(Click here to select the location)</string>
+    <string name="btn_continue">Continue</string>
+    <string name="hint_pick_location">Pick location first...</string>
+    <string name="label_pick_location">Pick Location</string>
 </resources>

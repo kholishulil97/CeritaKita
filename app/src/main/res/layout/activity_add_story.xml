@@ -30,9 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:endIconMode="clear_text"
-        app:layout_constraintBottom_toTopOf="@id/cameraXButton"
+        app:layout_constraintTop_toBottomOf="@id/preview_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:alpha="100">
@@ -42,10 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:lines="8"
-            android:hint="@string/hint_add_story"
             android:gravity="top"
+            android:hint="@string/hint_add_story"
+            android:inputType="textMultiLine"
+            android:lines="5"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,29 +65,99 @@
 
     <ImageView
         android:id="@+id/previewImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/descEditTextLayout"
+        android:contentDescription="@string/description_add_story_preview_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
-        app:srcCompat="@drawable/ic_place_holder"
-        android:contentDescription="@string/description_add_story_preview_image" />
+        app:srcCompat="@drawable/ic_place_holder" />
+
+    <RelativeLayout
+        android:id="@+id/btn_select_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:padding="8dp"
+        android:background="@drawable/bg_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/previewImageView">
+
+        <ImageView
+            android:id="@+id/ic_pin"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/content_description_btn_select_location"
+            android:src="@drawable/ic_baseline_my_location_24" />
+
+        <TextView
+            android:id="@+id/label_select_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/ic_pin"
+            android:text="@string/select_location" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preview_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_select_location">
+
+        <TextView
+            android:id="@+id/label_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/field_location"
+            android:text="@string/story_location"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btn_clear_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/story_location"
+            android:src="@drawable/ic_baseline_clear_24" />
+
+        <TextView
+            android:id="@+id/field_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_clear_location"
+            android:autofillHints=""
+            android:gravity="start"
+            android:lineHeight="20dp"
+            android:padding="8dp"
+            android:textSize="12sp"
+            tools:text="@string/story_location"
+            tools:ignore="UnusedAttribute" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/galleryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="4dp"
         android:text="@string/gallery"
-        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
         app:layout_constraintEnd_toStartOf="@+id/cameraXButton"
-        app:layout_constraintStart_toStartOf="@+id/descEditTextLayout" />
+        app:layout_constraintStart_toStartOf="@+id/descEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/descEditTextLayout" />
 
     <com.example.ceritakita.view.custom.MyButton
         android:id="@+id/uploadButton"
@@ -94,11 +165,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/upload"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/galleryButton" />
 
     <ProgressBar
         android:id="@+id/progressAddBarStory"

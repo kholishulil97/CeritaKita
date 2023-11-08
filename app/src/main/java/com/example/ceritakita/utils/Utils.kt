@@ -5,8 +5,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.location.Geocoder
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.exifinterface.media.ExifInterface
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -79,4 +82,43 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+enum class LocationPicker {
+    IsPicked, Latitude, Longitude
+}
+
+@Suppress("DEPRECATION")
+fun Geocoder.getAddress(
+    latitude: Double,
+    longitude: Double,
+    address: (android.location.Address?) -> Unit
+) {
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getFromLocation(latitude, longitude, 1) { address(it.firstOrNull()) }
+        return
+    }
+
+    try {
+        address(getFromLocation(latitude, longitude, 1)?.firstOrNull())
+    } catch(e: Exception) {
+        //will catch if there is an internet problem
+        address(null)
+    }
+}
+
+fun parseAddressLocation(
+    context: Context,
+    lat: Double,
+    lon: Double
+) {
+    Geocoder(context, Locale("in"))
+        .getAddress(lat, lon) { address: android.location.Address? ->
+            if (address != null) {
+                val fullAddress = address.getAddressLine(0)
+                StringBuilder("📌 ")
+                    .append(fullAddress).toString()
+            }
+        }
 }
