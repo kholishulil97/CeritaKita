@@ -141,6 +141,13 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnClearLocation.setOnClickListener {
             viewModel.isLocationPicked.postValue(false)
         }
+        viewModel.let { vm ->
+            vm.isLocationPicked.observe(this) {
+                /* if location picked -> show picked location address, else -> hide address & show pick location button */
+                binding.previewLocation.isVisible = it
+                binding.btnSelectLocation.isVisible = !it
+            }
+        }
     }
 
     private fun setupPermission() {

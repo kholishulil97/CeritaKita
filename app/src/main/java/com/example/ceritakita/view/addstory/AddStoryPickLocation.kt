@@ -215,22 +215,14 @@ class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     override fun getInfoWindow(p0: Marker): View? {
         val bindingTooltips =
             CustomTooltipPickLocationStoryBinding.inflate(LayoutInflater.from(this))
-        bindingTooltips.location.text = "xxx"
-//        bindingTooltips.location.text = Helper.parseAddressLocation(
-//            this,
-//            p0.position.latitude, p0.position.longitude
-//        )
-//        Geocoder(this, Locale("in"))
-//            .getAddress(p0.position.latitude, p0.position.longitude) { address: android.location.Address? ->
-//                if (address != null) {
-//                    val fullAddress = address.getAddressLine(0)
-//                    StringBuilder("📌 ")
-//                        .append(fullAddress).toString()
-//                    binding.fieldLocation.text = fullAddress
-//                } else {
-//                    binding.fieldLocation.text = getString(R.string.location_unknown)
-//                }
-//            }
+        Geocoder(this, Locale.getDefault())
+            .getAddress(p0.position.latitude, p0.position.longitude) { address: android.location.Address? ->
+                if (address != null) {
+                    bindingTooltips.location.text = address.getAddressLine(0)
+                } else {
+                    bindingTooltips.location.text = getString(R.string.location_unknown)
+                }
+            }
         return bindingTooltips.root
     }
 
