@@ -61,6 +61,14 @@
                     tools:text="@string/text_item_username"
                     android:transitionName="name"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/label_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                android:maxLines="1"
+                tools:text="Story Location" />
             <ImageView
                 android:id="@+id/profileImageView"
                 android:layout_width="match_parent"

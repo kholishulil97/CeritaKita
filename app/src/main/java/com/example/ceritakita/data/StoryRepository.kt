@@ -101,7 +101,13 @@ class StoryRepository (
         }
     }
 
-    fun uploadImage(token: String, imageFile: File, description: String) = liveData {
+    fun uploadImage(
+        imageFile: File,
+        description: String,
+        withLocation: Boolean = false,
+        lat: String? = null,
+        lon: String? = null
+    ) = liveData {
         emit(Result.Loading)
         val requestBody = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -110,14 +116,35 @@ class StoryRepository (
             imageFile.name,
             requestImageFile
         )
-        wrapEspressoIdlingResource {
-            try {
-                val successResponse = apiService.uploadImage(token, multipartBody, requestBody)
-                emit(Result.Success(successResponse))
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
-                emit(Result.Error(errorResponse.message))
+        if (withLocation) {
+            val positionLat = lat?.toRequestBody("text/plain".toMediaType())
+            val positionLon = lon?.toRequestBody("text/plain".toMediaType())
+            wrapEspressoIdlingResource {
+                try {
+                    val successResponse = apiService.uploadImage(
+                        multipartBody,
+                        requestBody,
+                        positionLat!!,
+                        positionLon!!)
+                    emit(Result.Success(successResponse))
+                } catch (e: HttpException) {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
+                    emit(Result.Error(errorResponse.message))
+                }
+            }
+        } else {
+            wrapEspressoIdlingResource {
+                try {
+                    val successResponse = apiService.uploadImage(
+                        multipartBody,
+                        requestBody)
+                    emit(Result.Success(successResponse))
+                } catch (e: HttpException) {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, UploadStoryResponse::class.java)
+                    emit(Result.Error(errorResponse.message))
+                }
             }
         }
     }

@@ -74,7 +74,7 @@ class AddStoryActivity : AppCompatActivity() {
                         LocationPicker.Longitude.name,
                         0.0
                     )
-                    Geocoder(this, Locale("in"))
+                    Geocoder(this, Locale.getDefault())
                         .getAddress(lat, lon) { address: android.location.Address? ->
                             if (address != null) {
                                 val fullAddress = address.getAddressLine(0)
@@ -211,29 +211,64 @@ class AddStoryActivity : AppCompatActivity() {
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             val description = binding.descEditText.text.toString()
+            if (viewModel.isLocationPicked.value != true) {
+                viewModel.uploadImage(
+                    imageFile,
+                    description
+                ).observe(this) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                showLoading(true)
+                                showForm(false)
+                            }
 
-            viewModel.uploadImage(token, imageFile, description).observe(this) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                            showLoading(true)
-                            showForm(false)
+                            is Result.Success -> {
+                                showToast(result.data.message)
+                                showLoading(false)
+                                finish()
+                            }
+
+                            is Result.Error -> {
+                                showToast(result.error)
+                                showLoading(false)
+                                showForm(true)
+                            }
                         }
+                    }
+                }
+            } else {
+                viewModel.uploadImage(
+                    imageFile,
+                    description,
+                    true,
+                    viewModel.coordinateLatitude.value.toString(),
+                    viewModel.coordinateLongitude.value.toString()
+                ).observe(this) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                showLoading(true)
+                                showForm(false)
+                            }
 
-                        is Result.Success -> {
-                            showToast(result.data.message)
-                            showLoading(false)
-                            finish()
-                        }
+                            is Result.Success -> {
+                                showToast(result.data.message)
+                                showLoading(false)
+                                finish()
+                            }
 
-                        is Result.Error -> {
-                            showToast(result.error)
-                            showLoading(false)
-                            showForm(true)
+                            is Result.Error -> {
+                                showToast(result.error)
+                                showLoading(false)
+                                showForm(true)
+                            }
                         }
                     }
                 }
             }
+
+
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 

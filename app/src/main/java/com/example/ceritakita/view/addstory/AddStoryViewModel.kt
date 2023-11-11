@@ -14,7 +14,13 @@ class AddStoryViewModel(private val repository: StoryRepository) : ViewModel() {
     val coordinateLongitude = MutableLiveData(0.0)
     val coordinateTemp = MutableLiveData(LatLng(-2.3932797, 108.8507139)) //Indonesian area
 
-    fun uploadImage(token: String, file: File, description: String) = repository.uploadImage(token, file, description)
+    fun uploadImage(
+        file: File,
+        description: String,
+        withLocation: Boolean = false,
+        lat: String? = null,
+        lon: String? = null
+    ) = repository.uploadImage(file, description, withLocation, lat, lon)
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession()

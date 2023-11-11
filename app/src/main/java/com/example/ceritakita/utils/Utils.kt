@@ -107,18 +107,3 @@ fun Geocoder.getAddress(
         address(null)
     }
 }
-
-fun parseAddressLocation(
-    context: Context,
-    lat: Double,
-    lon: Double
-) {
-    Geocoder(context, Locale("in"))
-        .getAddress(lat, lon) { address: android.location.Address? ->
-            if (address != null) {
-                val fullAddress = address.getAddressLine(0)
-                StringBuilder("📌 ")
-                    .append(fullAddress).toString()
-            }
-        }
-}

@@ -1,12 +1,16 @@
 package com.example.ceritakita.view.main.detailstory
 
+import android.location.Geocoder
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.ceritakita.R
 import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.databinding.ActivityDetailStoryBinding
+import com.example.ceritakita.utils.getAddress
+import java.util.Locale
 
 class DetailStoryActivity : AppCompatActivity() {
 
@@ -50,6 +54,21 @@ class DetailStoryActivity : AppCompatActivity() {
                         .placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
                 ).into(imageViewAvatar)
+        }
+        try {
+            val lat = data.lat
+            val lon = data.lon
+            Geocoder(this, Locale.getDefault())
+                .getAddress(lat, lon) { address: android.location.Address? ->
+                    if (address != null) {
+                        binding.labelLocation.text = address.getAddressLine(0)
+                        binding.labelLocation.isVisible = true
+                    } else {
+                        binding.labelLocation.isVisible = true
+                    }
+                }
+        } catch (e: Exception) {
+            binding.labelLocation.isVisible = false
         }
     }
 

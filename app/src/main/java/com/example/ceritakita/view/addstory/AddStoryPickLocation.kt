@@ -125,7 +125,7 @@ class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     }
 
     private fun postLocationSelected(lat: Double, lon: Double) {
-        Geocoder(this, Locale("in"))
+        Geocoder(this, Locale.getDefault())
             .getAddress(lat, lon) { address: android.location.Address? ->
                 if (address != null) {
                     binding.addressBar.text = address.getAddressLine(0)
