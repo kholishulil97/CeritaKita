@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
-    private val rvAdapter = StoryListAdapter()
+    private lateinit var storyAdapter: StoryListAdapter
     private var token = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +36,15 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         setContentView(binding.root)
 
         setupUser()
-        //setupAdapter()
+        setupAdapter()
 
         binding.rvStory.layoutManager = LinearLayoutManager(this)
 
         setupView()
-        //getData()
+    }
+
+    private fun setupAdapter() {
+        storyAdapter = StoryListAdapter()
     }
 
     private fun setupUser() {
@@ -98,10 +101,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             layoutManager = LinearLayoutManager(context)
             isNestedScrollingEnabled = false
             adapter =
-                rvAdapter.withLoadStateFooter(footer = LoadingStateAdapter { rvAdapter.retry() })
+                storyAdapter.withLoadStateFooter(footer = LoadingStateAdapter { storyAdapter.retry() })
         }
         viewModel.story.observe(this) {
-            rvAdapter.submitData(lifecycle, it)
+            storyAdapter.submitData(lifecycle, it)
         }
     }
 
@@ -121,8 +124,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onRefresh() {
         binding.swipeRefresh.isRefreshing = true
-        rvAdapter.refresh()
-        getData()
+        storyAdapter.refresh()
         Timer().schedule(2000) {
             binding.swipeRefresh.isRefreshing = false
             binding.rvStory.smoothScrollToPosition(0)
