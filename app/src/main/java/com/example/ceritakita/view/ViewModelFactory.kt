@@ -8,6 +8,7 @@ import com.example.ceritakita.di.Injection
 import com.example.ceritakita.view.addstory.AddStoryViewModel
 import com.example.ceritakita.view.login.LoginViewModel
 import com.example.ceritakita.view.main.MainViewModel
+import com.example.ceritakita.view.main.withlocation.StoryLocationViewModel
 import com.example.ceritakita.view.signup.SignupViewModel
 import com.example.ceritakita.view.splash.RoutingViewModel
 
@@ -30,6 +31,9 @@ class ViewModelFactory(private val repository: StoryRepository) : ViewModelProvi
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(StoryLocationViewModel::class.java) -> {
+                StoryLocationViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

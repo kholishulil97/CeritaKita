@@ -87,10 +87,10 @@ class StoryRepository (
         }
     }
 
-    fun getStories(token: String): LiveData<Result<StoryResponse>> = liveData {
+    fun getStories(): LiveData<Result<StoryResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getStories(token)
+            val response = apiService.getStories()
             emit(Result.Success(response))
         } catch (e: HttpException) {
             //get error message

@@ -12,7 +12,6 @@ class AddStoryViewModel(private val repository: StoryRepository) : ViewModel() {
     val isLocationPicked = MutableLiveData(false) // init for location new story not selected
     val coordinateLatitude = MutableLiveData(0.0)
     val coordinateLongitude = MutableLiveData(0.0)
-    val coordinateTemp = MutableLiveData(LatLng(-2.3932797, 108.8507139)) //Indonesian area
 
     fun uploadImage(
         file: File,

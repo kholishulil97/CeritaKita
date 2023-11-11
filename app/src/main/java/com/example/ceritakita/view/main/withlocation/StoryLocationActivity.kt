@@ -1,22 +1,18 @@
 package com.example.ceritakita.view.main.withlocation
 
 import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.example.ceritakita.R
+import com.example.ceritakita.data.entity.ListStoryItem
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,13 +21,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.ceritakita.databinding.ActivityStoryLocationBinding
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.example.ceritakita.view.ViewModelFactory
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
 
 class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val viewModel by viewModels<StoryLocationViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+    private var token = ""
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityStoryLocationBinding
 
@@ -66,17 +63,48 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        val dicodingSpace = LatLng(-6.8957643, 107.6338462)
-        mMap.addMarker(
-            MarkerOptions()
-                .position(dicodingSpace)
-                .title("Dicoding Space")
-                .snippet("Batik Kumeli No.50")
-        )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
-
         getMyLocation()
-        addManyMarker()
+        setupUser()
+    }
+
+    private fun setupUser() {
+        viewModel.getSession().observe(this) {
+            token = it.token
+            if (token.isEmpty()) {
+                showFailedDialog("token")
+            } else {
+                setupData()
+            }
+        }
+    }
+
+    private fun setupData() {
+        if (token.isNotEmpty()) {
+            viewModel.getStories().observe(this@StoryLocationActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is com.example.ceritakita.data.Result.Loading -> {
+                            binding.progressBarStory.visibility = View.VISIBLE
+                        }
+                        is com.example.ceritakita.data.Result.Success -> {
+                            binding.progressBarStory.visibility = View.GONE
+                            val storyData = result.data.listStory
+                            addManyMarker(storyData)
+                        }
+                        is com.example.ceritakita.data.Result.Error -> {
+                            binding.progressBarStory.visibility = View.GONE
+                            Toast.makeText(
+                                this@StoryLocationActivity,
+                                getString(R.string.message_dialog_server_error) + result.error,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -127,23 +155,15 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    data class TourismPlace(
-        val name: String,
-        val latitude: Double,
-        val longitude: Double
-    )
-
-    private fun addManyMarker() {
-        val tourismPlace = listOf(
-            TourismPlace("Floating Market Lembang", -6.8168954,107.6151046),
-            TourismPlace("The Great Asia Africa", -6.8331128,107.6048483),
-            TourismPlace("Rabbit Town", -6.8668408,107.608081),
-            TourismPlace("Alun-Alun Kota Bandung", -6.9218518,107.6025294),
-            TourismPlace("Orchid Forest Cikole", -6.780725, 107.637409),
-        )
-        tourismPlace.forEach { tourism ->
-            val latLng = LatLng(tourism.latitude, tourism.longitude)
-            mMap.addMarker(MarkerOptions().position(latLng).title(tourism.name))
+    private fun addManyMarker(storyData: List<ListStoryItem>) {
+        storyData.forEach { data ->
+            val latLng = LatLng(data.lat, data.lon)
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(data.name)
+                    .snippet(data.description)
+            )
             boundsBuilder.include(latLng)
         }
 
@@ -156,5 +176,19 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 300
             )
         )
+    }
+
+    private fun showFailedDialog(error: String) {
+        val mBuilder = AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.title_dialog_login_failed))
+            setMessage(getString(R.string.message_dialog_server_response) + error)
+            setPositiveButton(getString(R.string.positive_button_dialog_failed), null)
+        }
+        val mAlertDialog = mBuilder.create()
+        mAlertDialog.show()
+        val mPositiveButton = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        mPositiveButton.setOnClickListener {
+            mAlertDialog.cancel()
+        }
     }
 }
