@@ -18,43 +18,50 @@
 
         <ImageView
             android:id="@+id/storyImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/description_story_list_item_image"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars"
-            android:contentDescription="@string/description_story_list_item_image" />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/usernameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/storyImageView"
             android:textSize="16sp"
             android:textStyle="bold"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/storyImageView"
-            card_view:layout_constraintTop_toTopOf="@+id/storyImageView"
-            tools:text="@string/text_item_username"/>
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/storyImageView"
+            tools:text="@string/text_item_username" />
 
         <TextView
             android:id="@+id/descTextView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="5"
-            card_view:layout_constraintBottom_toBottomOf="@+id/storyImageView"
-            card_view:layout_constraintEnd_toEndOf="@+id/usernameTextView"
-            card_view:layout_constraintStart_toStartOf="@+id/usernameTextView"
+            android:textSize="14sp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/usernameTextView"
-            card_view:layout_constraintVertical_bias="0.0"
-            tools:text="@string/text_item_desc"/>
+            tools:text="@string/text_item_desc" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:textSize="12sp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/descTextView"
+            tools:text="@string/text_item_date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -14,7 +14,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.ceritakita.R
 import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.databinding.ItemStoryBinding
+import com.example.ceritakita.utils.DateFormatter
 import com.example.ceritakita.view.main.detailstory.DetailStoryActivity
+import java.util.TimeZone
 
 class StoryListAdapter :
     PagingDataAdapter<ListStoryItem, StoryListAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -36,6 +38,7 @@ class StoryListAdapter :
         fun bind(story: ListStoryItem) {
             binding.usernameTextView.text = story.name
             binding.descTextView.text = story.description
+            binding.dateTextView.text = DateFormatter.formatDate(story.createdAt, TimeZone.getDefault().id)
             Glide.with(itemView.context)
                 .load(story.photoUrl)
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
@@ -49,7 +52,8 @@ class StoryListAdapter :
                         itemView.context as Activity,
                         Pair(binding.storyImageView, "image"),
                         Pair(binding.usernameTextView, "name"),
-                        Pair(binding.descTextView, "desc")
+                        Pair(binding.descTextView, "desc"),
+                        Pair(binding.dateTextView, "date")
                     )
                 itemView.context.startActivity(intent, optionsCompat.toBundle())
             }

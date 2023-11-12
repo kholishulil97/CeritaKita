@@ -79,11 +79,21 @@
                 android:transitionName="image"
                 android:contentDescription="@string/description_detail_story_image" />
             <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                tools:text="@string/text_item_date"
+                android:transitionName="date"/>
+            <TextView
                 android:id="@+id/descTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textSize="14sp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
                 tools:text="@string/text_item_desc"
                 android:transitionName="desc"/>
         </LinearLayout>

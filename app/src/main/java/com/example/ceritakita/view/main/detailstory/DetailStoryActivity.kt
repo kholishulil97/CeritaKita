@@ -9,8 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.ceritakita.R
 import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.databinding.ActivityDetailStoryBinding
+import com.example.ceritakita.utils.DateFormatter
 import com.example.ceritakita.utils.getAddress
 import java.util.Locale
+import java.util.TimeZone
 
 class DetailStoryActivity : AppCompatActivity() {
 
@@ -37,6 +39,7 @@ class DetailStoryActivity : AppCompatActivity() {
         binding.apply {
             nameTextView.text = data.name
             descTextView.text = data.description
+            dateTextView.text = DateFormatter.formatDate(data.createdAt, TimeZone.getDefault().id)
             Glide.with(this@DetailStoryActivity)
                 .load(data.photoUrl)
                 .fitCenter()
