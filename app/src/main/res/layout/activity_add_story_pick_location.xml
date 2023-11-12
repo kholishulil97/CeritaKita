@@ -16,7 +16,7 @@
             android:id="@+id/ic_map"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:contentDescription="@string/content_description_selected_location"
+            android:contentDescription="@string/description_selected_location"
             android:src="@drawable/ic_map"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />

@@ -158,7 +158,7 @@ class AddStoryActivity : AppCompatActivity() {
                     false
                 }
             ) {
-                showFailedDialog("Location")
+                showFailedDialog(getString(R.string.message_dialog_permission_location))
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -320,11 +320,11 @@ class AddStoryActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_CAMERA_PERMISSIONS) {
             if (!cameraPermissionsGranted()) {
-                showFailedDialog("Camera")
+                showFailedDialog(getString(R.string.message_dialog_permission_camera))
             }
         } else if (requestCode == REQUEST_CODE_LOCATION_PERMISSIONS) {
             if (!locationPermissionsGranted()) {
-                showFailedDialog("Location")
+                showFailedDialog(getString(R.string.message_dialog_permission_location))
             }
         }
     }
@@ -337,10 +337,10 @@ class AddStoryActivity : AppCompatActivity() {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun showFailedDialog(error: String) {
+    private fun showFailedDialog(message: String) {
         val mBuilder = AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.dialog_title_permission_required))
-            setMessage(getString(R.string.dialog_message_permission_failed) + error)
+            setTitle(getString(R.string.title_dialog_permission))
+            setMessage(message)
             setPositiveButton(getString(R.string.dialog_button_allow), null)
             setNegativeButton(getString(R.string.dialog_button_cancel), null)
             setCancelable(false)

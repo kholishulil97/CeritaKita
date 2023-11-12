@@ -19,6 +19,8 @@
     <string name="title_dialog_signup_success">Akun berhasil dibuat</string>
     <string name="title_dialog_signup_failed">Akun gagal dibuat</string>
     <string name="title_dialog_login_failed">Login gagal</string>
+    <string name="title_dialog_token_failed">Token Tidak Valid</string>
+    <string name="message_dialog_token_failed">Silakan lakukan proses login ulang untuk mendapatkan token yang valid.</string>
     <string name="message_login_success">Berhasil login</string>
     <string name="message_dialog_server_response">"Pesan: "</string>
     <string name="message_dialog_server_error">"Terjadi kesalahan: "</string>
@@ -40,6 +42,7 @@
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
     <string name="message_camera_failed_shown">Gagal memunculkan kamera.</string>
     <string name="message_camera_failed_picture">Gagal mengambil gambar.</string>
+    <string name="message_camera_permission_success">Kamera diizinkan.</string>
     <string name="message_permission_failed">Gagal mendapatkan permission.</string>
 
     <string name="appwidget_text">BANNER CERITA KITA</string>
@@ -56,6 +59,8 @@
     <string name="description_story_list_item_image">Gambar item daftar story</string>
     <string name="description_widget_image">Gambar widget</string>
     <string name="description_detail_story_image">Gambar story</string>
+    <string name="description_btn_select_location">Pilih lokasi</string>
+    <string name="description_selected_location">selected location</string>
 
     <string name="retry">Coba lagi</string>
 
@@ -64,4 +69,21 @@
     <string name="satellite_type">Satelit</string>
     <string name="terrain_type">Medan</string>
     <string name="hybrid_type">Hibrida</string>
+
+    <string name="select_location">Pilih lokasi</string>
+    <string name="story_location">Lokasi Cerita</string>
+    <string name="title_activity_new_story_pick_location">AddStoryPickLocation</string>
+    <string name="location_unknown">📌 Lokasi Tidak Diketahui</string>
+    <string name="btn_click_select_location">(Klik di sini untuk memilih lokasi)</string>
+    <string name="btn_continue">Lanjutkan</string>
+    <string name="hint_pick_location">Pilih lokasi dulu…</string>
+    <string name="label_pick_location">Pilih Lokasi</string>
+
+    <string name="title_dialog_permission">Izin dibutuhkan</string>
+    <string name="message_dialog_permission_camera">Anda harus mengizinkan akses ke kamera smartphone untuk mengakses fitur ini.</string>
+    <string name="message_dialog_permission_location">Anda harus berbagi lokasi smartphone untuk mengakses fitur ini. Tekan [Izinkan] untuk mengizinkan akses ke aplikasi ini. Jika Anda diizinkan untuk memilih keakuratan, pilih [Akurat].</string>
+    <string name="title_dialog_select_location_failed">Pemilihan lokasi gagal</string>
+    <string name="message_dialog_select_location_failed">Coba periksa koneksi internet dan mulai lagi dari awal.</string>
+    <string name="dialog_button_allow">Izinkan</string>
+    <string name="dialog_button_cancel">Batal</string>
 </resources>

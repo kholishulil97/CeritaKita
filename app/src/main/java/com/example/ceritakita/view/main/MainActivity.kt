@@ -3,15 +3,12 @@ package com.example.ceritakita.view.main
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ceritakita.R
-import com.example.ceritakita.data.Result
 import com.example.ceritakita.data.paging.LoadingStateAdapter
 import com.example.ceritakita.data.paging.StoryListAdapter
 import com.example.ceritakita.databinding.ActivityMainBinding
@@ -51,7 +48,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         viewModel.getSession().observe(this) {
             token = it.token
             if (token.isEmpty()) {
-                showFailedDialog("token")
+                showFailedDialog()
             } else {
                 getData()
             }
@@ -75,10 +72,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     true
                 }
                 R.id.btn_logout -> {
-                    viewModel.logout()
-                    val intent = Intent(this, WelcomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    processLogout()
                     true
                 }
                 else -> false
@@ -108,10 +102,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         }
     }
 
-    private fun showFailedDialog(error: String) {
+    private fun showFailedDialog() {
         val mBuilder = AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.title_dialog_login_failed))
-            setMessage(getString(R.string.message_dialog_server_response) + error)
+            setTitle(getString(R.string.title_dialog_token_failed))
+            setMessage(getString(R.string.message_dialog_token_failed))
             setPositiveButton(getString(R.string.positive_button_dialog_failed), null)
         }
         val mAlertDialog = mBuilder.create()
@@ -119,7 +113,15 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         val mPositiveButton = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
+            processLogout()
         }
+    }
+
+    private fun processLogout() {
+        viewModel.logout()
+        val intent = Intent(this, WelcomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onRefresh() {

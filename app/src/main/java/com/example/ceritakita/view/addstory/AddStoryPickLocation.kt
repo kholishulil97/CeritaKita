@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Geocoder
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,16 +13,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.example.ceritakita.R
-
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.example.ceritakita.databinding.ActivityAddStoryPickLocationBinding
 import com.example.ceritakita.databinding.CustomTooltipPickLocationStoryBinding
 import com.example.ceritakita.utils.Constanta
@@ -31,8 +23,14 @@ import com.example.ceritakita.utils.getAddress
 import com.example.ceritakita.view.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import java.util.Locale
 
 class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWindowAdapter {
@@ -56,7 +54,6 @@ class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.
             finish()
         }
         binding.btnSelectLocation.setOnClickListener {
-            /* check is location picked before next step */
             if (viewModel.isLocationPicked.value == true) {
                 val intent = Intent()
                 intent.putExtra(
@@ -228,8 +225,8 @@ class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.
 
     private fun showFailedDialog() {
         val mBuilder = AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.title_dialog_signup_failed))
-            setMessage(getString(R.string.message_dialog_server_response))
+            setTitle(getString(R.string.title_dialog_select_location_failed))
+            setMessage(getString(R.string.message_dialog_select_location_failed))
             setPositiveButton(getString(R.string.positive_button_dialog_failed), null)
         }
         val mAlertDialog = mBuilder.create()
@@ -237,6 +234,8 @@ class AddStoryPickLocation : AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         val mPositiveButton = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
+            setResult(RESULT_CANCELED)
+            finish()
         }
     }
 }

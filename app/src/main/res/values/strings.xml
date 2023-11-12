@@ -18,6 +18,8 @@
     <string name="title_dialog_signup_success">Account created successfully</string>
     <string name="title_dialog_signup_failed">Account failed to create</string>
     <string name="title_dialog_login_failed">Login failed</string>
+    <string name="title_dialog_token_failed">Invalid token</string>
+    <string name="message_dialog_token_failed">Please do the re-login process to get a valid token.</string>
     <string name="message_login_success">Login successful</string>
     <string name="message_dialog_server_response">"Message: "</string>
     <string name="message_dialog_server_error">"There is an error: "</string>
@@ -55,6 +57,8 @@
     <string name="description_story_list_item_image">Story list item image</string>
     <string name="description_widget_image">Widget image</string>
     <string name="description_detail_story_image">Story image</string>
+    <string name="description_btn_select_location">Select location</string>
+    <string name="description_selected_location">selected location</string>
 
     <string name="retry">Try again</string>
 
@@ -63,18 +67,21 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
+
     <string name="select_location">Select location</string>
-    <string name="content_description_btn_select_location">Select location</string>
     <string name="story_location">Story Location</string>
-    <string name="title_activity_new_story_pick_location">NewStoryPickLocation</string>
+    <string name="title_activity_new_story_pick_location">AddStoryPickLocation</string>
     <string name="location_unknown">📌 Location Unknown</string>
-    <string name="dialog_title_permission_required">Permission Required</string>
-    <string name="dialog_message_permission_failed">Please allow the following permission to launch the feature:\n</string>
-    <string name="dialog_button_allow">Allow</string>
-    <string name="dialog_button_cancel">Cancel</string>
-    <string name="content_description_selected_location">selected location</string>
     <string name="btn_click_select_location">(Click here to select the location)</string>
     <string name="btn_continue">Continue</string>
-    <string name="hint_pick_location">Pick location first...</string>
+    <string name="hint_pick_location">Pick location first…</string>
     <string name="label_pick_location">Pick Location</string>
+
+    <string name="title_dialog_permission">Permission Required</string>
+    <string name="message_dialog_permission_camera">You need to allow access to your smartphone\'s camera to access this feature.</string>
+    <string name="message_dialog_permission_location">You need to share your smartphone\'s location to access this feature. Tap [Allow] to allow the access to this app. If you are allowed to select the precision, select [Precise].</string>
+    <string name="title_dialog_select_location_failed">Location selection failed</string>
+    <string name="message_dialog_select_location_failed">Try checking your internet connection and starting again from the beginning.</string>
+    <string name="dialog_button_allow">Allow</string>
+    <string name="dialog_button_cancel">Cancel</string>
 </resources>

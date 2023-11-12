@@ -1,7 +1,6 @@
 package com.example.ceritakita.view.main.withlocation
 
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,19 +9,19 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.ceritakita.R
 import com.example.ceritakita.data.entity.ListStoryItem
-
+import com.example.ceritakita.databinding.ActivityStoryLocationBinding
+import com.example.ceritakita.view.ViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.example.ceritakita.databinding.ActivityStoryLocationBinding
-import com.example.ceritakita.view.ViewModelFactory
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 
 class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel by viewModels<StoryLocationViewModel> {
@@ -71,7 +70,7 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         viewModel.getSession().observe(this) {
             token = it.token
             if (token.isEmpty()) {
-                showFailedDialog("token")
+                showFailedDialog()
             } else {
                 setupData()
             }
@@ -178,10 +177,10 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         )
     }
 
-    private fun showFailedDialog(error: String) {
+    private fun showFailedDialog() {
         val mBuilder = AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.title_dialog_login_failed))
-            setMessage(getString(R.string.message_dialog_server_response) + error)
+            setTitle(getString(R.string.title_dialog_token_failed))
+            setMessage(getString(R.string.message_dialog_token_failed))
             setPositiveButton(getString(R.string.positive_button_dialog_failed), null)
         }
         val mAlertDialog = mBuilder.create()
@@ -189,6 +188,7 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         val mPositiveButton = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
+            finish()
         }
     }
 }

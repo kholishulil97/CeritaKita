@@ -92,7 +92,7 @@
             android:id="@+id/ic_pin"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:contentDescription="@string/content_description_btn_select_location"
+            android:contentDescription="@string/description_btn_select_location"
             android:src="@drawable/ic_baseline_my_location_24" />
 
         <TextView
