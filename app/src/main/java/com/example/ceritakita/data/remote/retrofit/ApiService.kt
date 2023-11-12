@@ -1,6 +1,5 @@
 package com.example.ceritakita.data.remote.retrofit
 
-import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.data.remote.response.login.LoginResponse
 import com.example.ceritakita.data.remote.response.signup.SignupResponse
 import com.example.ceritakita.data.remote.response.story.StoryResponse
@@ -10,7 +9,6 @@ import okhttp3.RequestBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part

@@ -9,7 +9,6 @@ import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.exifinterface.media.ExifInterface
 import java.io.ByteArrayOutputStream
 import java.io.File

@@ -32,18 +32,6 @@ class StoryRepository (
     private val userPreference: UserPreference,
     private val storyDatabase: StoryDatabase
 ) {
-    suspend fun saveSession(user: UserModel) {
-        userPreference.saveSession(user)
-    }
-
-    fun getSession(): LiveData<UserModel> {
-        return userPreference.getSession().asLiveData()
-    }
-
-    suspend fun logout() {
-        userPreference.logout()
-    }
-
     companion object {
         @Volatile
         private var instance: StoryRepository? = null
@@ -55,6 +43,18 @@ class StoryRepository (
             instance ?: synchronized(this) {
                 instance ?: StoryRepository(apiService, userPreference, storyDatabase)
             }.also { instance = it }
+    }
+
+    suspend fun saveSession(user: UserModel) {
+        userPreference.saveSession(user)
+    }
+
+    fun getSession(): LiveData<UserModel> {
+        return userPreference.getSession().asLiveData()
+    }
+
+    suspend fun logout() {
+        userPreference.logout()
     }
 
     fun postSignUp(name: String, email: String, password: String): LiveData<Result<SignupResponse>> = liveData {

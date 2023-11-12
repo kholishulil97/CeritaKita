@@ -119,7 +119,7 @@ class AddStoryActivity : AppCompatActivity() {
         binding.uploadButton.setOnClickListener {
             viewModel.getSession().observe(this) {
                 token = it.token
-                uploadImage(token)
+                uploadImage()
             }
         }
         binding.btnSelectLocation.setOnClickListener {
@@ -206,7 +206,7 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImage(token: String) {
+    private fun uploadImage() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
