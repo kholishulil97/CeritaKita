@@ -87,4 +87,6 @@
     <string name="message_dialog_select_location_failed">Coba periksa koneksi internet dan mulai lagi dari awal.</string>
     <string name="dialog_button_allow">Izinkan</string>
     <string name="dialog_button_cancel">Batal</string>
+    <string name="permission_not_allowed_location">Lokasi tidak diizinkan.</string>
+    <string name="permission_not_allowed_camera">Kamera tidak diizinkan.</string>
 </resources>

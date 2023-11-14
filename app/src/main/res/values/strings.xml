@@ -85,4 +85,6 @@
     <string name="message_dialog_select_location_failed">Try checking your internet connection and starting again from the beginning.</string>
     <string name="dialog_button_allow">Allow</string>
     <string name="dialog_button_cancel">Cancel</string>
+    <string name="permission_not_allowed_location">Location permission not allowed.</string>
+    <string name="permission_not_allowed_camera">Camera permission not allowed.</string>
 </resources>

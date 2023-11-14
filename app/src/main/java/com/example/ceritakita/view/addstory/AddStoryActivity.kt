@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
@@ -27,6 +26,7 @@ import androidx.core.view.isVisible
 import com.example.ceritakita.R
 import com.example.ceritakita.data.Result
 import com.example.ceritakita.databinding.ActivityAddStoryBinding
+import com.example.ceritakita.utils.Constanta
 import com.example.ceritakita.utils.LocationPicker
 import com.example.ceritakita.utils.getAddress
 import com.example.ceritakita.utils.reduceFileImage
@@ -46,6 +46,7 @@ class AddStoryActivity : AppCompatActivity() {
     private var isPicked: Boolean? = false
     private var getResult: ActivityResultLauncher<Intent>? = null
     private var getResultPermission: ActivityResultLauncher<Intent>? = null
+    private lateinit var permissionRequested: Constanta.PermissionRequested
 
     companion object {
         private val CAMERA_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -94,14 +95,13 @@ class AddStoryActivity : AppCompatActivity() {
         getResultPermission = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
-            setupPermission()
+            checkPermissionResult()
         }
 
         setupView()
         setMyButtonEnable()
         setupViewListener()
         setupAction()
-        setupPermission()
     }
 
     private fun setupView() {
@@ -114,7 +114,9 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.cameraXButton.setOnClickListener { startCameraX() }
+        binding.cameraXButton.setOnClickListener {
+            requestPermission(Constanta.PermissionRequested.Camera)
+        }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
             viewModel.getSession().observe(this) {
@@ -123,20 +125,7 @@ class AddStoryActivity : AppCompatActivity() {
             }
         }
         binding.btnSelectLocation.setOnClickListener {
-            /* check permission to granted apps pick user location */
-            if (locationPermissionsGranted()) {
-                val intentPickLocation = Intent(this, AddStoryPickLocation::class.java)
-                getResult?.launch(intentPickLocation)
-            } else {
-                ActivityCompat.requestPermissions(
-                    this@AddStoryActivity,
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    REQUEST_CODE_LOCATION_PERMISSIONS
-                )
-            }
+            requestPermission(Constanta.PermissionRequested.Location)
         }
         binding.btnClearLocation.setOnClickListener {
             viewModel.isLocationPicked.postValue(false)
@@ -146,25 +135,6 @@ class AddStoryActivity : AppCompatActivity() {
                 /* if location picked -> show picked location address, else -> hide address & show pick location button */
                 binding.previewLocation.isVisible = it
                 binding.btnSelectLocation.isVisible = !it
-            }
-        }
-    }
-
-    private fun setupPermission() {
-        if (!cameraPermissionsGranted()) {
-            if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
-                } else {
-                    false
-                }
-            ) {
-                showFailedDialog(getString(R.string.message_dialog_permission_location))
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    CAMERA_PERMISSIONS,
-                    REQUEST_CODE_CAMERA_PERMISSIONS
-                )
             }
         }
     }
@@ -312,21 +282,63 @@ class AddStoryActivity : AppCompatActivity() {
         })
     }
 
+    private fun requestPermission(permission: Constanta.PermissionRequested) {
+        permissionRequested = permission
+        when (permission) {
+            Constanta.PermissionRequested.Camera ->
+                if (!cameraPermissionsGranted()) {
+                    showDialog()
+                } else {
+                    startCameraX()
+                }
+            Constanta.PermissionRequested.Location ->
+                if (!locationPermissionsGranted()) {
+                    showDialog()
+                } else {
+                    val intentPickLocation = Intent(this, AddStoryPickLocation::class.java)
+                    getResult?.launch(intentPickLocation)
+                }
+        }
+    }
+
+    private fun setupPermission() {
+        when (permissionRequested) {
+            Constanta.PermissionRequested.Camera ->
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                    ActivityCompat.requestPermissions(
+                        this@AddStoryActivity,
+                        arrayOf(
+                            Manifest.permission.CAMERA
+                        ),
+                        REQUEST_CODE_CAMERA_PERMISSIONS
+                    )
+                } else {
+                    openSettingPermission(this)
+                }
+            Constanta.PermissionRequested.Location ->
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION) ) {
+                    ActivityCompat.requestPermissions(
+                        this@AddStoryActivity,
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ),
+                        REQUEST_CODE_LOCATION_PERMISSIONS
+                    )
+                } else {
+                    openSettingPermission(this)
+                }
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_CAMERA_PERMISSIONS) {
-            if (!cameraPermissionsGranted()) {
-                showFailedDialog(getString(R.string.message_dialog_permission_camera))
-            }
-        } else if (requestCode == REQUEST_CODE_LOCATION_PERMISSIONS) {
-            if (!locationPermissionsGranted()) {
-                showFailedDialog(getString(R.string.message_dialog_permission_location))
-            }
-        }
+        checkPermissionResult()
     }
 
     private fun cameraPermissionsGranted() = CAMERA_PERMISSIONS.all {
@@ -337,10 +349,37 @@ class AddStoryActivity : AppCompatActivity() {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun showFailedDialog(message: String) {
+    private fun getDialogMessageString() : String {
+        return when (permissionRequested) {
+            Constanta.PermissionRequested.Camera -> getString(R.string.message_dialog_permission_camera)
+            Constanta.PermissionRequested.Location -> getString(R.string.message_dialog_permission_location)
+        }
+    }
+
+    private fun checkPermissionResult() {
+        when (permissionRequested) {
+            Constanta.PermissionRequested.Camera ->
+                if (cameraPermissionsGranted()) {
+                    startCameraX()
+                } else {
+                    Toast.makeText(this,
+                        getString(R.string.permission_not_allowed_camera), Toast.LENGTH_SHORT).show()
+                }
+            Constanta.PermissionRequested.Location ->
+                if (locationPermissionsGranted()) {
+                    val intentPickLocation = Intent(this, AddStoryPickLocation::class.java)
+                    getResult?.launch(intentPickLocation)
+                } else {
+                    Toast.makeText(this,
+                        getString(R.string.permission_not_allowed_location), Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun showDialog() {
         val mBuilder = AlertDialog.Builder(this).apply {
             setTitle(getString(R.string.title_dialog_permission))
-            setMessage(message)
+            setMessage(getDialogMessageString())
             setPositiveButton(getString(R.string.dialog_button_allow), null)
             setNegativeButton(getString(R.string.dialog_button_cancel), null)
             setCancelable(false)
@@ -349,13 +388,16 @@ class AddStoryActivity : AppCompatActivity() {
         mAlertDialog.show()
         val mPositiveButton = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         mPositiveButton.setOnClickListener {
-            openSettingPermission(this)
+            setupPermission()
             mAlertDialog.cancel()
         }
         val mNegativeButton = mAlertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
         mNegativeButton.setOnClickListener {
             mAlertDialog.cancel()
-            finish()
+            if (permissionRequested == Constanta.PermissionRequested.Camera) {
+                Toast.makeText(this,
+                    getString(R.string.permission_not_allowed_camera), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

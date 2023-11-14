@@ -7,5 +7,9 @@ object Constanta {
         IsPicked, Latitude, Longitude
     }
 
+    enum class PermissionRequested {
+        Camera, Location
+    }
+
     val indonesiaLocation = LatLng(-2.3932797, 108.8507139)
 }
