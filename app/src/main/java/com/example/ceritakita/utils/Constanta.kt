@@ -12,4 +12,6 @@ object Constanta {
     }
 
     val indonesiaLocation = LatLng(-2.3932797, 108.8507139)
+
+    const val TAG_WIDGET = "WIDGET_STORY"
 }

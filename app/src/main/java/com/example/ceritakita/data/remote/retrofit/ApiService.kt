@@ -6,9 +6,11 @@ import com.example.ceritakita.data.remote.response.story.StoryResponse
 import com.example.ceritakita.data.remote.response.story.upload.UploadStoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -56,4 +58,9 @@ interface ApiService {
         @Part("lat") lat: RequestBody,
         @Part("lon") lon: RequestBody
     ): UploadStoryResponse
+
+    @GET("stories")
+    suspend fun getStoryListWidget(
+        @Query("size") size: Int = 10
+    ): Response<StoryResponse>
 }

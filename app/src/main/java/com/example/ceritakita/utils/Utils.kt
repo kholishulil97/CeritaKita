@@ -9,12 +9,17 @@ import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.os.StrictMode
 import androidx.exifinterface.media.ExifInterface
+import com.example.ceritakita.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -81,6 +86,41 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+/* load BITMAP from string URL */
+fun bitmapFromURL(context: Context, urlString: String): Bitmap {
+    return try {
+        /* allow access content from URL internet */
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        /* fetch image data from URL */
+        val url = URL(urlString)
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        connection.doInput = true
+        connection.connect()
+        val input: InputStream = connection.inputStream
+        BitmapFactory.decodeStream(input)
+    } catch (e: IOException) {
+        BitmapFactory.decodeResource(context.resources, R.drawable.storm_trooper)
+    }
+}
+
+fun resizeBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
+    val width = bm.width
+    val height = bm.height
+    val scaleWidth = newWidth.toFloat() / width
+    val scaleHeight = newHeight.toFloat() / height
+
+    /* init matrix to resize bitmap */
+    val matrix = Matrix()
+    matrix.postScale(scaleWidth, scaleHeight)
+
+    /* recreate new bitmap as new defined size */
+    val resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
+    bm.recycle()
+    return resizedBitmap
 }
 
 enum class LocationPicker {
