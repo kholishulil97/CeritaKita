@@ -65,14 +65,14 @@ class AddStoryActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 it.data?.let { res ->
-                    isPicked = res.getBooleanExtra(LocationPicker.IsPicked.name, false)
+                    isPicked = res.getBooleanExtra(Constanta.LocationPicker.IsPicked.name, false)
                     viewModel.isLocationPicked.postValue(isPicked)
                     val lat = res.getDoubleExtra(
-                        LocationPicker.Latitude.name,
+                        Constanta.LocationPicker.Latitude.name,
                         0.0
                     )
                     val lon = res.getDoubleExtra(
-                        LocationPicker.Longitude.name,
+                        Constanta.LocationPicker.Longitude.name,
                         0.0
                     )
                     Geocoder(this, Locale.getDefault())

@@ -123,10 +123,6 @@ fun resizeBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
     return resizedBitmap
 }
 
-enum class LocationPicker {
-    IsPicked, Latitude, Longitude
-}
-
 @Suppress("DEPRECATION")
 fun Geocoder.getAddress(
     latitude: Double,

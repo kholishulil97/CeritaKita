@@ -3,7 +3,6 @@ package com.example.ceritakita.widget
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Handler
 import android.util.Log
 import android.widget.RemoteViews
@@ -19,7 +18,6 @@ import com.example.ceritakita.utils.bitmapFromURL
 import com.example.ceritakita.utils.resizeBitmap
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import java.lang.StringBuilder
 
 internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 
@@ -52,7 +50,6 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
                     Toast.makeText(
                         mContext,
 
-                        /* multilingual toast while failed fetch data -> saran reviewer pakai string builder */
                         StringBuilder("Failed")
                             .append(" : ")
                             .append(exception.message),
