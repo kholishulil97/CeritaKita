@@ -27,7 +27,6 @@ import com.example.ceritakita.R
 import com.example.ceritakita.data.Result
 import com.example.ceritakita.databinding.ActivityAddStoryBinding
 import com.example.ceritakita.utils.Constanta
-import com.example.ceritakita.utils.LocationPicker
 import com.example.ceritakita.utils.getAddress
 import com.example.ceritakita.utils.reduceFileImage
 import com.example.ceritakita.utils.uriToFile
