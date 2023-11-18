@@ -1,7 +1,9 @@
 package com.example.ceritakita.view.main.withlocation
 
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 
 class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -64,6 +67,7 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
         getMyLocation()
         setupUser()
+        setMapStyle()
     }
 
     private fun setupUser() {
@@ -189,6 +193,23 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         mPositiveButton.setOnClickListener {
             mAlertDialog.cancel()
             finish()
+        }
+    }
+
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        this,
+                        R.raw.map_style
+                    )
+                )
+            if (!success) {
+                Log.e("MAPS", "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e("MAPS", "Can't find style. Error: ", exception)
         }
     }
 }
