@@ -13,6 +13,7 @@ import com.example.ceritakita.data.entity.ListStoryItem
 import com.example.ceritakita.data.paging.StoryListAdapter
 import com.example.ceritakita.utils.DataDummy
 import com.example.ceritakita.utils.MainDispatcherRule
+import com.example.ceritakita.utils.dummyToken
 import com.example.ceritakita.utils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,10 +47,10 @@ class MainViewModelTest {
         val expectedStories = MutableLiveData<PagingData<ListStoryItem>>()
         expectedStories.value = data
 
-        `when`(storyRepository.getStory()).thenReturn(expectedStories)
+        `when`(storyRepository.getStory(dummyToken)).thenReturn(expectedStories)
 
         val listStoryViewModel = MainViewModel(storyRepository)
-        val actualStories: PagingData<ListStoryItem> = listStoryViewModel.story.getOrAwaitValue()
+        val actualStories: PagingData<ListStoryItem> = listStoryViewModel.getStory(dummyToken).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryListAdapter.DIFF_CALLBACK,
@@ -71,10 +72,10 @@ class MainViewModelTest {
         val expectedStories = MutableLiveData<PagingData<ListStoryItem>>()
         expectedStories.value = data
 
-        `when`(storyRepository.getStory()).thenReturn(expectedStories)
+        `when`(storyRepository.getStory(dummyToken)).thenReturn(expectedStories)
 
         val listStoryViewModel = MainViewModel(storyRepository)
-        val actualStories: PagingData<ListStoryItem> = listStoryViewModel.story.getOrAwaitValue()
+        val actualStories: PagingData<ListStoryItem> = listStoryViewModel.getStory(dummyToken).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryListAdapter.DIFF_CALLBACK,

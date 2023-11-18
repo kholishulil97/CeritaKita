@@ -46,3 +46,6 @@ suspend fun <T> LiveData<T>.observeForTesting(block: suspend  () -> Unit) {
         removeObserver(observer)
     }
 }
+
+const val dummyToken =
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWZWNkFCelJ6QzFlOE9RckkiLCJpYXQiOjE2NTEwMjE4MzB9.fNi8G9VXnv8Sg1EHJq2KHOeMg_tbhLuo2Hqd6YMacK4"
