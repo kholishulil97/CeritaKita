@@ -18,5 +18,5 @@ class StoryLocationViewModel(private val repository: StoryRepository) : ViewMode
         return repository.getSession()
     }
 
-    fun getStories() = repository.getStories()
+    fun getStories(token: String) = repository.getStories(token)
 }

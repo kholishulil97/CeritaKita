@@ -12,6 +12,7 @@ import com.example.ceritakita.data.remote.retrofit.ApiService
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
+    private val token: String,
     private val database: StoryDatabase,
     private val apiService: ApiService
 ) : RemoteMediator<Int, ListStoryItem>() {
@@ -47,7 +48,7 @@ class StoryRemoteMediator(
         }
 
         try {
-            val responseData = apiService.getStory(page, state.config.pageSize).listStory
+            val responseData = apiService.getStory(token, page, state.config.pageSize).listStory
             val endOfPaginationReached = responseData.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

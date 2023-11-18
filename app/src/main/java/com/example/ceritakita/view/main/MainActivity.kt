@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             adapter =
                 storyAdapter.withLoadStateFooter(footer = LoadingStateAdapter { storyAdapter.retry() })
         }
-        viewModel.story.observe(this) {
+        viewModel.getStory(token).observe(this) {
             storyAdapter.submitData(lifecycle, it)
         }
     }

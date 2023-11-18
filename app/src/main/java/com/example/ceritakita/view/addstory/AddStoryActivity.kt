@@ -97,10 +97,24 @@ class AddStoryActivity : AppCompatActivity() {
             checkPermissionResult()
         }
 
+        setupUser()
         setupView()
         setMyButtonEnable()
         setupViewListener()
         setupAction()
+    }
+
+    private fun setupUser() {
+        viewModel.getSession().observe(this) {
+            token = it.token
+            if (token.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.message_dialog_token_failed),
+                    Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
     }
 
     private fun setupView() {
@@ -182,6 +196,7 @@ class AddStoryActivity : AppCompatActivity() {
             val description = binding.descEditText.text.toString()
             if (viewModel.isLocationPicked.value != true) {
                 viewModel.uploadImage(
+                    token,
                     imageFile,
                     description
                 ).observe(this) { result ->
@@ -208,6 +223,7 @@ class AddStoryActivity : AppCompatActivity() {
                 }
             } else {
                 viewModel.uploadImage(
+                    token,
                     imageFile,
                     description,
                     true,

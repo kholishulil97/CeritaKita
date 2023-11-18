@@ -31,9 +31,9 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
             try {
                 val pref = UserPreference.getInstance(mContext.dataStore)
                 val user = runBlocking { pref.getSession().first() }
-                val service = ApiConfig.getApiService(user.token)
+                val service = ApiConfig.getApiService()
 
-                val response = service.getStoryListWidget(10).body()
+                val response = service.getStoryListWidget(user.token,10).body()
                 val stories = response?.listStory
                 if (stories != null) {
                     mWidgetItems.clear()

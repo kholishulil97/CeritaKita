@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
     private fun processLogin(data: LoginResponse) {
             viewModel.saveSession(
                 UserModel(
-                    //"Bearer " +
+                    "Bearer " +
                             data.loginResult.token,
                     true
                 )

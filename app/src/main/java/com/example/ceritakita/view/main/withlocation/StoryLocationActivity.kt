@@ -79,7 +79,7 @@ class StoryLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setupData() {
         if (token.isNotEmpty()) {
-            viewModel.getStories().observe(this@StoryLocationActivity) { result ->
+            viewModel.getStories(token).observe(this@StoryLocationActivity) { result ->
                 if (result != null) {
                     when (result) {
                         is com.example.ceritakita.data.Result.Loading -> {

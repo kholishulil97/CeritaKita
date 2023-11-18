@@ -87,10 +87,10 @@ class StoryRepository (
         }
     }
 
-    fun getStories(): LiveData<Result<StoryResponse>> = liveData {
+    fun getStories(token: String): LiveData<Result<StoryResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getStories()
+            val response = apiService.getStories(token)
             emit(Result.Success(response))
         } catch (e: HttpException) {
             //get error message
@@ -102,6 +102,7 @@ class StoryRepository (
     }
 
     fun uploadImage(
+        token: String,
         imageFile: File,
         description: String,
         withLocation: Boolean = false,
@@ -122,6 +123,7 @@ class StoryRepository (
             wrapEspressoIdlingResource {
                 try {
                     val successResponse = apiService.uploadImage(
+                        token,
                         multipartBody,
                         requestBody,
                         positionLat!!,
@@ -137,6 +139,7 @@ class StoryRepository (
             wrapEspressoIdlingResource {
                 try {
                     val successResponse = apiService.uploadImage(
+                        token,
                         multipartBody,
                         requestBody)
                     emit(Result.Success(successResponse))
@@ -149,13 +152,13 @@ class StoryRepository (
         }
     }
 
-    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+    fun getStory(token: String): LiveData<PagingData<ListStoryItem>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
+            remoteMediator = StoryRemoteMediator(token, storyDatabase, apiService),
             pagingSourceFactory = {
                 storyDatabase.storyDao().getAllStory()
             }
